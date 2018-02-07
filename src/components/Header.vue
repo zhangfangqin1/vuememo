@@ -8,6 +8,9 @@
 </template>
 
 <script>
+import { mapMutations } from "Vuex";
+import mutationType from "../store/mutation";
+
 export default {
   name: "Header",
   data: function() {
@@ -18,11 +21,18 @@ export default {
         {
           name: "新建笔记",
           method: () => {}
+        },
+        {
+          name: "删除全部笔记",
+          method: this.drop_memo
         }
       ]
     };
   },
   methods: {
+    ...mapMutations({
+      drop_memo: mutationType.DROP_MEMO
+    }),
     handleShowActionSheet(e) {
       this.isSheetVisible = true;
     }

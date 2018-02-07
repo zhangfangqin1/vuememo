@@ -1,8 +1,15 @@
 <template>
   <div>
+    <!-- 标题和工具栏 -->
     <Header/>
-    <p>{{ msg }}</p>
+    <!--  -->
+    <!-- <p>{{ msg }}</p> -->
     <input type="text" @change="handleChangeTitle" placeholder="click here to change app title">
+    <!-- memos -->
+    <div id="memos">
+      <MemoItem></MemoItem>
+    </div>
+    <!--  -->
   </div>
 </template>
 
@@ -11,11 +18,13 @@ import { mapState } from "Vuex";
 import { mapMutations } from "Vuex";
 import mutationType from "../store/mutation";
 import Header from "@/components/Header";
+import MemoItem from "@/components/MemoItem";
 
 export default {
   name: "Index",
   components: {
-    Header
+    Header,
+    MemoItem
   },
   computed: {
     ...mapState({
@@ -24,10 +33,17 @@ export default {
   },
   methods: {
     ...mapMutations({
-      set_demotitle: mutationType.SET_DEMOTITLE
+      set_demotitle: mutationType.SET_DEMOTITLE,
+      add_memo: mutationType.ADD_MEMO
     }),
     handleChangeTitle(e) {
-      this.set_demotitle(e.target.value);
+      this.add_memo({
+        categoryId: 0,
+        title: "demo",
+        content: "新增memo" + e.target.value,
+        completed: false,
+        timestamp: Date.now()
+      });
     }
   }
 };
