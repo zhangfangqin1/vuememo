@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header/>
     <p>{{ msg }}</p>
     <input type="text" @change="handleChangeTitle" placeholder="click here to change app title">
   </div>
@@ -9,9 +10,13 @@
 import { mapState } from "Vuex";
 import { mapMutations } from "Vuex";
 import mutationType from "../store/mutation";
+import Header from "@/components/Header";
 
 export default {
   name: "Index",
+  components: {
+    Header
+  },
   computed: {
     ...mapState({
       msg: "msg"
