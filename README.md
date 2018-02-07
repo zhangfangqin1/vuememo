@@ -1,21 +1,30 @@
 # vuememo
 
-> A Vue.js project
+> 基于 Vue.js 的简单记事本 SPA
 
 ## Build Setup
 
 ``` bash
-# install dependencies
+# 安装依赖
 npm install
-
-# serve with hot reload at localhost:8080
+# 开发模式localhost:8080
 npm run dev
-
-# build for production with minification
+# 打包构建
 npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## 主要功能
+
+- v1
+  - ✔️创建、删除、修改笔记
+  - 标记笔记是否完成
+  - 对不同尺寸的桌面端和移动端响应适配
+  - 按类别、标题、内容或时间进行过滤
+  - 按创建时间或标题排序
+- v2
+  - 实时保存笔记
+  - 通过localStorage对象的数据本地持久化
+  - 支持Markdown格式
+- v3
+  - 通过base64支持保存图片
+  - 通过Canvas支持绘图
