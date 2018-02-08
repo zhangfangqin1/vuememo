@@ -8,7 +8,8 @@ import mutationType from "./mutation";
 const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
-    msg: 'vuememo demo',
+    msg: '这里显示一些紧急通知类消息',
+    type: ['工作', '学习', '生活'],
     memos: [{
       categoryId: 0,
       title: '异步逻辑都应该封装到 action 里面',

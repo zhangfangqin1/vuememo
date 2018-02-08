@@ -3,8 +3,8 @@
     <!-- 标题和工具栏 -->
     <Header/>
     <!--  -->
-    <!-- <p>{{ msg }}</p> -->
-    <input type="text" @change="handleChangeTitle" placeholder="click here to change app title">
+    <mt-cell title="通知" :value="msg"></mt-cell>
+
     <!-- memos -->
     <div id="memos">
       <MemoItem></MemoItem>
@@ -35,16 +35,7 @@ export default {
     ...mapMutations({
       set_demotitle: mutationType.SET_DEMOTITLE,
       add_memo: mutationType.ADD_MEMO
-    }),
-    handleChangeTitle(e) {
-      this.add_memo({
-        categoryId: 0,
-        title: "demo",
-        content: "新增memo" + e.target.value,
-        completed: false,
-        timestamp: Date.now()
-      });
-    }
+    })
   }
 };
 </script>

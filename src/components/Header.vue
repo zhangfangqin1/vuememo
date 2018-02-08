@@ -8,7 +8,10 @@
 </template>
 
 <script>
+import { MessageBox } from "mint-ui";
 import { mapMutations } from "Vuex";
+import { Toast } from "mint-ui";
+
 import mutationType from "../store/mutation";
 
 export default {
@@ -20,11 +23,27 @@ export default {
       arrActions: [
         {
           name: "新建笔记",
-          method: () => {}
+          method: () => {
+            this.$router.push({ path: "new" });
+          }
         },
         {
           name: "删除全部笔记",
-          method: this.drop_memo
+          method: () => {
+            MessageBox.confirm("确定执行此操作?", "提示").then(
+              () => {
+                console.log("确认删除所有笔记");
+                this.drop_memo();
+                Toast({
+                  message: "操作成功",
+                  duration: 1000
+                });
+              },
+              () => {
+                console.log("取消");
+              }
+            );
+          }
         }
       ]
     };
