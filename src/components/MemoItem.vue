@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="memos" :key="item.uid" v-for="item of memos">
+    <div class="memos" :key="item.uid" v-for="item of memos" @click="handleClick(item.uid)">
       <h3>{{item.title}}</h3>
       <p>{{item.content}}</p>
       <p>日期：{{new Date(item.timestamp).toLocaleTimeString()}}</p>
@@ -18,6 +18,11 @@ export default {
     ...mapState({
       memos: "memos"
     })
+  },
+  methods: {
+    handleClick(uid) {
+      this.$router.push({ path: "/" + uid });
+    }
   }
 };
 </script>
