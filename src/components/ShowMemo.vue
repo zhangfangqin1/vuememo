@@ -1,20 +1,24 @@
 <template>
-    <div>
-        <Header/>
-        <div class="container">
-            <h3 class="title">{{title}}</h3>
-            <p class="timestamp">{{new Date(timestamp).toLocaleTimeString()}}</p>
-            <p class="content">{{content}}</p>
-        </div>
-        <div class="button-group">
-            <mt-button type="primary" size="large">修改</mt-button>
-            <mt-button @click.native="handleBack" type="default" size="large">返回主页</mt-button>
-        </div>
+  <div>
+    <Header/>
+    <div class="container">
+      <h3 class="title">{{title}}</h3>
+      <p class="timestamp">{{new Date(timestamp).toLocaleTimeString()}}</p>
+      <p class="content">{{content}}</p>
     </div>
+    <div class="button-group">
+      <mt-button type="primary" size="large">修改</mt-button>
+      <mt-button @click.native="handleDelete" type="danger" size="large">删除</mt-button>
+      <mt-button @click.native="handleBack" type="default" size="large">返回主页</mt-button>
+    </div>
+  </div>
 </template>
 
 <script>
 import { mapState } from "Vuex";
+import { mapMutations } from "Vuex";
+import { Toast } from "mint-ui";
+import { MessageBox } from "mint-ui";
 import mutationType from "../store/mutation";
 import Header from "@/components/Header";
 
@@ -36,8 +40,27 @@ export default {
     })
   },
   methods: {
+    ...mapMutations({
+      delete_memo: "DELETE_MEMO"
+    }),
     handleBack(e) {
       this.$router.push({ path: "/" });
+    },
+    handleDelete() {
+      let uid = this.$route.params.id;
+      MessageBox.confirm("确定删除此笔记？", "提示").then(
+        () => {
+          console.log("确认删除笔记");
+          this.delete_memo(uid);
+          this.$router.push({ path: "/" });
+          Toast({
+            message: "已删除"
+          });
+        },
+        () => {
+          console.log("取消");
+        }
+      );
     }
   },
   mounted: function() {
@@ -46,7 +69,6 @@ export default {
       let item = [];
       if (uid === elem.uid) {
         item = this.memos[index];
-
         // render
         [this.title, this.content, this.timestamp] = [
           item.title,
