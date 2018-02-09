@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="memos" :key="item.uid" v-for="(item, index) of memos">
+    <div class="memos" :key="item.uid" v-for="item of memos">
       <h3>{{item.title}}</h3>
       <p>{{item.content}}</p>
       <p>日期：{{new Date(item.timestamp).toLocaleTimeString()}}</p>
