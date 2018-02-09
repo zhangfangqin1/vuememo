@@ -4,8 +4,7 @@
       <h3>{{item.title}}</h3>
       <p>{{item.content}}</p>
       <p>日期：{{new Date(item.timestamp).toLocaleTimeString()}}</p>
-      <p>是否完成：{{item.completed}}</p>
-      <p>uid: {{item.uid}}</p>
+      <p><i class="fas fa-check"></i>{{item.completed}}</p>
     </div>
   </div>
 </template>
