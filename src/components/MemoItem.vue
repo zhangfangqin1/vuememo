@@ -1,10 +1,11 @@
 <template>
   <div>
-    <div class="memos" :key="index" v-for="(item, index) of memos">
+    <div class="memos" :key="item.uid" v-for="(item, index) of memos">
       <h3>{{item.title}}</h3>
       <p>{{item.content}}</p>
       <p>日期：{{new Date(item.timestamp).toLocaleTimeString()}}</p>
       <p>是否完成：{{item.completed}}</p>
+      <p>uid: {{item.uid}}</p>
     </div>
   </div>
 </template>

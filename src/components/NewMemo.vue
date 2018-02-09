@@ -14,6 +14,7 @@
 import { mapState } from "Vuex";
 import { mapMutations } from "Vuex";
 import { Toast } from "mint-ui";
+import utils from "../utils";
 
 import mutationType from "../store/mutation";
 import Header from "@/components/Header";
@@ -41,6 +42,7 @@ export default {
     }),
     handleSubmitBtn(e) {
       this.add_memo({
+        uid: utils.uid(),
         categoryId: this.$store.state.type.indexOf(this.memo_category_id),
         title: this.memo_title,
         content: this.memo_content,
