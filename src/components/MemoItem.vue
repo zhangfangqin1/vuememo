@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="memos" :key="item.uid" v-for="item of memos" @click="handleClick(item.uid)">
-      <h3>{{item.title}}</h3>
+      <h3>
+        {{item.title}}
+        <font-awesome-icon class="check" v-show="item.completed" :icon="['fas','check']"/>
+      </h3>
       <p>{{item.content}}</p>
       <p>日期：{{new Date(item.timestamp).toLocaleTimeString()}}</p>
       <p><i class="fas fa-check"></i>{{item.completed}}</p>
@@ -32,5 +35,8 @@ div.memos {
   border-radius: 3px;
   margin: 3px;
   padding: 5px;
+}
+.check {
+  float: right;
 }
 </style>

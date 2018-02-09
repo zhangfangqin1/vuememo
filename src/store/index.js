@@ -15,7 +15,7 @@ const store = new Vuex.Store({
       categoryId: 0,
       title: '异步逻辑都应该封装到 action 里面',
       content: '只要你遵守以上规则，如何组织代码随你便。如果你的 store 文件太大，只需将 action、mutation 和 getter 分割到单独的文件。',
-      completed: false,
+      completed: true,
       timestamp: 1518021887038
     }, {
       uid: '4053002oy0tdtd',
