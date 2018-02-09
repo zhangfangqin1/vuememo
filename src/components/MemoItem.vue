@@ -1,19 +1,23 @@
 <template>
   <div>
-    <div class="memos" :key="item.uid" v-for="item of memos" @click="handleClick(item.uid)">
-      <h3>
+    <div class="memos" :key="item.uid" v-for="item of memos">
+      <h3 @click="handleComplete(item)">
         {{item.title}}
-        <font-awesome-icon class="check" v-show="item.completed" :icon="['fas','check']"/>
+        <font-awesome-icon class="check" v-if="item.completed" :icon="['fas','check-circle']" />
+        <font-awesome-icon class="check" v-else :icon="['fas','circle']" />
       </h3>
-      <p>{{item.content}}</p>
+      <p @click="handleClick(item.uid)">{{item.content}}</p>
       <p>日期：{{new Date(item.timestamp).toLocaleTimeString()}}</p>
-      <p><i class="fas fa-check"></i>{{item.completed}}</p>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "Vuex";
+import { mapMutations } from "Vuex";
+import mutationType from "../store/mutation";
+import { Toast } from "mint-ui";
+
 export default {
   name: "MemoItem",
   computed: {
@@ -22,8 +26,17 @@ export default {
     })
   },
   methods: {
+    ...mapMutations({
+      check_memo: mutationType.CHECK_MEMO
+    }),
     handleClick(uid) {
       this.$router.push({ path: "/" + uid });
+    },
+    handleComplete(item) {
+      this.check_memo(item.uid);
+      Toast({
+        message: `标记${item.completed ? "完成" : "未完成"}`
+      });
     }
   }
 };
@@ -31,12 +44,13 @@ export default {
 
 <style scoped>
 div.memos {
-  border: 1px solid #ccc;
-  border-radius: 3px;
   margin: 3px;
   padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
 .check {
   float: right;
+  color: #26a2ff;
 }
 </style>

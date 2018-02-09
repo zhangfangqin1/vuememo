@@ -42,6 +42,14 @@ const store = new Vuex.Store({
     },
     [mutationType.DROP_MEMO](state, index) {
       state.memos = [];
+    },
+    [mutationType.CHECK_MEMO](state, uid) {
+      state.memos.forEach((elem, index) => {
+        let item = [];
+        if (uid === elem.uid) {
+          elem.completed = !elem.completed;
+        }
+      });
     }
   }
 });
