@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="memos" :key="item.uid" v-for="item of memos">
+    <div class="memos" :key="item.uid" v-for="item of memosData">
       <h3 @click="handleComplete(item)">
         {{item.title}}
         <transition name="slide-fade" mode="out-in">
@@ -18,18 +18,13 @@
 </template>
 
 <script>
-import { mapState } from "Vuex";
 import { mapMutations } from "Vuex";
 import mutationType from "../store/mutation";
 import { Toast } from "mint-ui";
 
 export default {
   name: "MemoItem",
-  computed: {
-    ...mapState({
-      memos: "memos"
-    })
-  },
+  props: ["memosData"],
   methods: {
     ...mapMutations({
       check_memo: mutationType.CHECK_MEMO
