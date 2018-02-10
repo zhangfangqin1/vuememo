@@ -7,7 +7,7 @@
       <p class="content">{{content}}</p>
     </div>
     <div class="button-group">
-      <mt-button type="primary" size="large">修改</mt-button>
+      <mt-button @click.native="handleModify" type="primary" size="large">修改</mt-button>
       <mt-button @click.native="handleDelete" type="danger" size="large">删除</mt-button>
       <mt-button @click.native="handleBack" type="default" size="large">返回主页</mt-button>
     </div>
@@ -45,6 +45,10 @@ export default {
     }),
     handleBack(e) {
       this.$router.push({ path: "/" });
+    },
+    handleModify() {
+      let uid = this.$route.params.id;
+      this.$router.push({ path: `/modify/${uid}` });
     },
     handleDelete() {
       let uid = this.$route.params.id;

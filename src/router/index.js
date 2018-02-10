@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Index from '@/components/Index'
 import NewMemo from '@/components/NewMemo'
 import ShowMemo from '@/components/ShowMemo'
+import ModifyMemo from '@/components/ModifyMemo'
 
 Vue.use(Router)
 
@@ -15,6 +16,10 @@ export default new Router({
     path: '/new',
     name: 'NewMemo',
     component: NewMemo
+  }, {
+    path: '/modify/:id',
+    name: 'ModifyMemo',
+    component: ModifyMemo
   }, {
     path: '/:id',
     name: 'ShowMemo',
