@@ -1,15 +1,10 @@
 <template>
   <div>
-    <!-- 标题和工具栏 -->
     <Header/>
-    <!--  -->
-      <mt-cell title="通知" :value="msg"></mt-cell>
-
-    <!-- memos -->
-      <div id="memos">
-        <MemoItem></MemoItem>
-      </div>
-    <!--  -->
+    <mt-cell v-show="msg.length" title="通知" :value="msg"></mt-cell>
+    <div id="memos">
+      <MemoItem></MemoItem>
+    </div>
   </div>
 </template>
 
