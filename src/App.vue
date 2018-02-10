@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <transition name="component-fade" mode="out-in">
+      <router-view/>
+    </transition>
   </div>
 </template>
 
@@ -24,8 +26,6 @@ h6,
 header {
   padding: 0;
   margin: 0;
-}
-body {
   font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -38,5 +38,12 @@ h4,
 h5,
 h6 {
   color: #2c3e50;
+}
+/* 过渡动画 */
+.component-fade-enter-active {
+  transition: opacity 0.3s ease;
+}
+.component-fade-enter {
+  opacity: 0;
 }
 </style>

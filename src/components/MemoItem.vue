@@ -3,8 +3,10 @@
     <div class="memos" :key="item.uid" v-for="item of memos">
       <h3 @click="handleComplete(item)">
         {{item.title}}
-        <font-awesome-icon class="check" v-if="item.completed" :icon="['fas','check-circle']" />
-        <font-awesome-icon class="check" v-else :icon="['fas','circle']" />
+        <transition name="slide-fade" mode="out-in">
+          <font-awesome-icon class="check" v-if="item.completed === true" key="checked" :icon="['fas','check-circle']" />
+          <font-awesome-icon class="check" v-if="item.completed === false" key="notChecked" :icon="['fas','circle']" />
+        </transition>
       </h3>
       <p @click="handleClick(item.uid)">{{item.content}}</p>
       <p>日期：{{new Date(item.timestamp).toLocaleTimeString()}}</p>
@@ -55,5 +57,17 @@ export default {
 .check {
   float: right;
   color: #26a2ff;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.2s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>
