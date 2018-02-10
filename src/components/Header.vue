@@ -2,7 +2,7 @@
   <div>
     <!-- 首页 -->
     <mt-header v-if="currentRouteName === 'Index'" class="header" :title="strTitle">
-      <mt-button @click="handleShowActionSheet" slot="right">
+      <mt-button @click="handleCreate" slot="right">
         <font-awesome-icon :icon="['fas','plus']" />
       </mt-button>
     </mt-header>
@@ -72,6 +72,9 @@ export default {
     },
     handleBack() {
       this.$router.go(-1);
+    },
+    handleCreate() {
+      this.$router.push({ path: "/new" });
     }
   }
 };
