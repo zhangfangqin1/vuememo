@@ -3,12 +3,12 @@
     <!-- 标题和工具栏 -->
     <Header/>
     <!--  -->
-    <mt-cell title="通知" :value="msg"></mt-cell>
+      <mt-cell title="通知" :value="msg"></mt-cell>
 
     <!-- memos -->
-    <div id="memos">
-      <MemoItem></MemoItem>
-    </div>
+      <div id="memos">
+        <MemoItem></MemoItem>
+      </div>
     <!--  -->
   </div>
 </template>

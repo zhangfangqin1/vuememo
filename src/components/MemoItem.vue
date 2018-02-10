@@ -43,11 +43,18 @@ export default {
 </script>
 
 <style scoped>
-div.memos {
+.memos {
   margin: 3px;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 3px;
+}
+.memos h3 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+.memos p {
+  color: #34495e;
 }
 .check {
   float: right;

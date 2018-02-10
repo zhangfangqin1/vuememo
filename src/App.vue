@@ -25,4 +25,9 @@ header {
   padding: 0;
   margin: 0;
 }
+body {
+  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
 </style>
