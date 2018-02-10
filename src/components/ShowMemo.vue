@@ -7,9 +7,8 @@
       <p class="content">{{content}}</p>
     </div>
     <div class="button-group">
-      <mt-button @click.native="handleModify" type="primary" size="large">修改</mt-button>
-      <mt-button @click.native="handleDelete" type="danger" size="large">删除</mt-button>
-      <mt-button @click.native="handleBack" type="default" size="large">返回主页</mt-button>
+      <mt-button @click.native="handleModify" type="primary" plain size="large">修改</mt-button>
+      <mt-button @click.native="handleDelete" type="danger" plain size="large">删除</mt-button>
     </div>
   </div>
 </template>
@@ -43,9 +42,6 @@ export default {
     ...mapMutations({
       delete_memo: "DELETE_MEMO"
     }),
-    handleBack(e) {
-      this.$router.push({ path: "/" });
-    },
     handleModify() {
       let uid = this.$route.params.id;
       this.$router.push({ path: `/modify/${uid}` });
@@ -110,5 +106,8 @@ export default {
   bottom: 0;
   position: absolute;
   width: 100%;
+}
+.button-group button {
+  margin-bottom: 3px;
 }
 </style>

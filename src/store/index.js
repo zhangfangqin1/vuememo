@@ -40,6 +40,17 @@ const store = new Vuex.Store({
     [mutationType.ADD_MEMO](state, value) {
       state.memos.unshift(value);
     },
+    [mutationType.MODIFY_MEMO](state, value) {
+      let uid = value.uid;
+      state.memos.forEach((elem, index) => {
+        if (uid === elem.uid) {
+          elem.categoryId = value.categoryId;
+          elem.title = value.title;
+          elem.content = value.content;
+          elem.timestamp = value.timestamp;
+        }
+      });
+    },
     [mutationType.DROP_MEMO](state, index) {
       state.memos = [];
     },

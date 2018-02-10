@@ -36,6 +36,23 @@ export default {
     };
   },
   methods: {
+    ...mapMutations({
+      modify_memo: mutationType.MODIFY_MEMO
+    }),
+    handleSubmitBtn() {
+      let uid = this.$route.params.id;
+      this.modify_memo({
+        uid,
+        categoryId: this.$store.state.type.indexOf(this.memo_category_id),
+        title: this.memo_title,
+        content: this.memo_content,
+        timestamp: Date.now()
+      });
+      Toast({
+        message: `修改成功`
+      });
+      this.$router.go(-1);
+    },
     handleCancelBtn() {
       this.$router.go(-1);
     }
@@ -45,6 +62,7 @@ export default {
     this.$store.state.memos.forEach(elem => {
       if (elem.uid === uid) {
         console.log(elem);
+        // render
         [this.memo_category_id, this.memo_title, this.memo_content] = [
           this.$store.state.type[elem.categoryId],
           elem.title,

@@ -1,8 +1,22 @@
 <template>
   <div>
-    <mt-header :title="strTitle">
-      <mt-button @click="handleShowActionSheet" icon="more" slot="right"></mt-button>
+    <!-- 首页 -->
+    <mt-header v-if="currentRouteName === 'Index'" class="header" :title="strTitle">
+      <mt-button @click="handleShowActionSheet" slot="right">
+        <font-awesome-icon :icon="['fas','plus']" />
+      </mt-button>
     </mt-header>
+    <!--  -->
+    <!-- 非首页 -->
+    <mt-header v-if="currentRouteName !== 'Index'" class="header" :title="strTitle">
+      <mt-button @click="handleBack" slot="left">
+        <font-awesome-icon :icon="['fas','chevron-left']" />
+      </mt-button>
+      <mt-button @click="handleShowActionSheet" slot="right">
+        <font-awesome-icon :icon="['fas','bars']" />
+      </mt-button>
+    </mt-header>
+    <!--  -->
     <mt-actionsheet :actions="arrActions" v-model="isSheetVisible"></mt-actionsheet>
   </div>
 </template>
@@ -20,6 +34,7 @@ export default {
     return {
       strTitle: "VUEMEMO",
       isSheetVisible: false,
+      currentRouteName: this.$route.name,
       arrActions: [
         {
           name: "新建笔记",
@@ -54,7 +69,17 @@ export default {
     }),
     handleShowActionSheet(e) {
       this.isSheetVisible = true;
+    },
+    handleBack() {
+      this.$router.go(-1);
     }
   }
 };
 </script>
+
+<style scoped>
+.header {
+  background: #fff;
+  color: #26a2ff;
+}
+</style>

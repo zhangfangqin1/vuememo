@@ -4,12 +4,15 @@
       <h3 @click="handleComplete(item)">
         {{item.title}}
         <transition name="slide-fade" mode="out-in">
-          <font-awesome-icon class="check" v-if="item.completed === true" key="checked" :icon="['fas','check-circle']" />
-          <font-awesome-icon class="check" v-if="item.completed === false" key="notChecked" :icon="['fas','circle']" />
+          <font-awesome-icon class="check" v-if="item.completed === true" key="checked" :icon="['fas','check']" />
+          <font-awesome-icon class="not-check" v-if="item.completed === false" key="notChecked" :icon="['fas','check']" />
         </transition>
       </h3>
       <p @click="handleClick(item.uid)">{{item.content}}</p>
-      <p>日期：{{new Date(item.timestamp).toLocaleTimeString()}}</p>
+      <div class="date">
+        <font-awesome-icon :icon="['fas','calendar-alt']" />
+        <span>{{new Date(item.timestamp).toLocaleTimeString()}}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -54,9 +57,24 @@ export default {
 .memos h3 {
   margin-bottom: 10px;
 }
+.memos:last-of-type {
+  margin-bottom: 120px;
+}
+.date {
+  color: #999;
+  font-size: 13px;
+}
+
 .check {
   float: right;
   color: #26a2ff;
+  font-size: 36px;
+}
+.not-check {
+  float: right;
+  color: #26a2ff;
+  opacity: 0.1;
+  font-size: 36px;
 }
 
 .slide-fade-enter-active {
