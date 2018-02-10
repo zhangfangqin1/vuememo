@@ -1,14 +1,14 @@
 <template>
   <div>
     <mt-tabbar fixed v-model="selected">
-      <mt-tab-item id="全部">
-        <font-awesome-icon @click="handleShowAll" class="icon" :icon="['far','list-alt']" />
+      <mt-tab-item @click.native="handleShowAll" id="全部">
+        <font-awesome-icon class="icon" :icon="['far','list-alt']" />
       </mt-tab-item>
-      <mt-tab-item id="已完成">
-        <font-awesome-icon @click="handleShowComplete" class="icon" :icon="['far','check-circle']" />
+      <mt-tab-item @click.native="handleShowComplete" id="已完成">
+        <font-awesome-icon class="icon" :icon="['far','check-circle']" />
       </mt-tab-item>
-      <mt-tab-item id="未完成">
-        <font-awesome-icon @click="handleShowIncomplete" class="icon" :icon="['far','circle']" />
+      <mt-tab-item @click.native="handleShowIncomplete" id="未完成">
+        <font-awesome-icon class="icon" :icon="['far','circle']" />
       </mt-tab-item>
       <mt-tab-item id="筛选">
         <font-awesome-icon class="icon" :icon="['far','folder']" />
