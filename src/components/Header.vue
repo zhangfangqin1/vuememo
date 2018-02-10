@@ -18,7 +18,7 @@ export default {
   name: "Header",
   data: function() {
     return {
-      strTitle: "vuememo",
+      strTitle: "VUEMEMO",
       isSheetVisible: false,
       arrActions: [
         {

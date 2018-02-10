@@ -4,9 +4,11 @@
     <mt-radio title="笔记类型" v-model="memo_category_id" :options="this.$store.state.type">
     </mt-radio>
     <mt-field label="标题" placeholder="请输入标题" v-model="memo_title"></mt-field>
-    <mt-field label="内容" placeholder="文本内容" type="textarea" rows="8" v-model="memo_content"></mt-field>
-    <mt-button plain size="large" class="new-memo" @click.native="handleSubmitBtn" type="primary">确认提交</mt-button>
-    <mt-button plain size="large" class="new-memo" @click.native="handleCancelBtn" type="danger">取消</mt-button>
+    <mt-field label="内容" placeholder="文本内容" type="textarea" rows="12" v-model="memo_content"></mt-field>
+    <div class="button-group">
+      <mt-button plain size="large" class="new-memo" @click.native="handleSubmitBtn" type="primary">确认提交</mt-button>
+      <mt-button plain size="large" class="new-memo" @click.native="handleCancelBtn" type="danger">取消</mt-button>
+    </div>
   </div>
 </template>
 
@@ -68,8 +70,14 @@ export default {
 <style>
 textarea {
   resize: none;
+  height: 50%;
 }
 .new-memo {
   margin-bottom: 3px;
+}
+.button-group {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
 }
 </style>
