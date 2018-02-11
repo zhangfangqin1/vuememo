@@ -4,7 +4,7 @@
       <mt-button v-if="currentRouteName !== 'Index'" @click="handleBack" slot="left">
         <font-awesome-icon :icon="['fas','chevron-left']" />
       </mt-button>
-      <mt-button @click="handleShowActionSheet" slot="right">
+      <mt-button v-else-if="currentRouteName === 'Index'" @click="handleShowActionSheet" slot="right">
         <font-awesome-icon :icon="['fas','bars']" />
       </mt-button>
     </mt-header>
@@ -50,13 +50,20 @@ export default {
               }
             );
           }
+        },
+        {
+          name: "切换显示模式",
+          method: () => {
+            this.switch_display();
+          }
         }
       ]
     };
   },
   methods: {
     ...mapMutations({
-      drop_memo: mutationType.DROP_MEMO
+      drop_memo: mutationType.DROP_MEMO,
+      switch_display: mutationType.SWITCH_DISPLAY
     }),
     handleShowActionSheet(e) {
       this.isSheetVisible = true;

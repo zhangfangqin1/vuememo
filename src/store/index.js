@@ -10,6 +10,7 @@ const store = new Vuex.Store({
   state: {
     msg: '这里显示一些紧急通知类消息',
     type: ['工作', '学习', '生活'],
+    displayType: true,
     memos: [{
       uid: '4053377u49mkby',
       categoryId: 0,
@@ -67,6 +68,9 @@ const store = new Vuex.Store({
           state.memos.splice(index, 1);
         }
       });
+    },
+    [mutationType.SWITCH_DISPLAY](state) {
+      this.state.displayType = !this.state.displayType;
     }
   }
 });

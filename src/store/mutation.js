@@ -5,6 +5,7 @@ const mutationTypes = {
   DELETE_MEMO: 'DELETE_MEMO',
   DROP_MEMO: 'DROP_MEMO',
   CHECK_MEMO: 'CHECK_MEMO',
+  SWITCH_DISPLAY: 'SWITCH_DISPLAY'
 }
 
 export default mutationTypes;

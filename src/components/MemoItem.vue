@@ -1,34 +1,44 @@
 <template>
   <div>
-    <transition-group name="list" mode="in-out">
-      <div class="memos" :key="item.uid" v-for="item of memosData">
-        <h3 @click="handleComplete(item)">
-          {{item.title.length > 50 ? item.title.substr(0,50) + '...': item.title.substr(0,50)}}
-          <transition name="slide-fade" mode="out-in">
-            <font-awesome-icon class="check" v-if="item.completed === true" key="checked" :icon="['fas','check']" />
-            <font-awesome-icon class="not-check" v-if="item.completed === false" key="notChecked" :icon="['fas','check']" />
-          </transition>
-        </h3>
-        <div class="date">
-          <font-awesome-icon :icon="['fas','calendar-alt']" />
-          <span>{{new Date(item.timestamp).toLocaleTimeString()}}</span>
+    <div class="memos" :key="item.uid" v-for="item of memosData">
+      <span @click="handleComplete(item)">
+        <transition name="scale-fade" mode="out-in">
+          <font-awesome-icon class="check" v-if="item.completed === true" key="checked" :icon="['far','check-circle']" />
+          <font-awesome-icon class="not-check" v-if="item.completed === false" key="notChecked" :icon="['far','circle']" />
+        </transition>
+      </span>
+      <h3 @click="handleClick(item.uid)" class="title">
+        {{item.title.length > 50 ? item.title.substr(0,50) + '...': item.title.substr(0,50)}}
+      </h3>
+      <transition name="slide-right" mode="out-in">
+        <div v-if="displayType">
+          <div class="date">
+            <font-awesome-icon :icon="['fas','calendar-alt']" />
+            <span>{{new Date(item.timestamp).toLocaleTimeString()}}</span>
+          </div>
+          <p @click="handleClick(item.uid)">
+            {{item.content.length > 100 ? item.content.substr(0,100) + '...': item.content.substr(0,100)}}
+          </p>
         </div>
-        <p @click="handleClick(item.uid)">
-          {{item.content.length > 100 ? item.content.substr(0,100) + '...': item.content.substr(0,100)}}
-        </p>
-      </div>
-    </transition-group>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapMutations } from "Vuex";
+import { mapState } from "Vuex";
 import mutationType from "../store/mutation";
 import { Toast } from "mint-ui";
 
 export default {
   name: "MemoItem",
   props: ["memosData"],
+  computed: {
+    ...mapState({
+      displayType: "displayType"
+    })
+  },
   methods: {
     ...mapMutations({
       check_memo: mutationType.CHECK_MEMO
@@ -63,40 +73,18 @@ export default {
   font-size: 13px;
   margin-bottom: 5px;
 }
+.title {
+  display: inline;
+  font-size: 20px;
+}
 
 .check {
-  float: right;
   color: #26a2ff;
-  font-size: 36px;
+  font-size: 20px;
 }
 .not-check {
-  float: right;
-  color: #26a2ff;
-  opacity: 0.1;
-  font-size: 36px;
-}
-/* 是否完成按钮动效 */
-.slide-fade-enter-active {
-  transition: all 0.2s ease;
-}
-.slide-fade-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.slide-fade-enter,
-.slide-fade-leave-to {
-  transform: translateX(10px);
-  opacity: 0;
-}
-/* memo笔记动效 */
-.list-enter-active {
-  transition: all 1s;
-}
-.list-leave-active {
-  transition: all 0.1s;
-}
-.list-enter,
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
+  z-index: 999;
+  color: #888;
+  font-size: 20px;
 }
 </style>

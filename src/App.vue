@@ -47,4 +47,34 @@ h6 {
 .component-fade-enter {
   opacity: 0;
 }
+/* 是否完成按钮动效 */
+.scale-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.scale-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.scale-fade-enter,
+.scale-fade-leave-to {
+  transform: scale(3);
+  opacity: 0;
+}
+/* 切换显示模式 */
+.slide-right-enter,
+.slide-right-leave-to {
+  opacity: 0;
+  max-height: 0;
+  transform: translateX(30px);
+}
+.slide-right-enter-to,
+.slide-right-leave {
+  opacity: 1;
+  max-height: 300px;
+}
+.slide-right-enter-active {
+  transition: all 1s ease;
+}
+.slide-right-leave-active {
+  transition: all 0.3s ease;
+}
 </style>
