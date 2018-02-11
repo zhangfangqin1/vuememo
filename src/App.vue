@@ -30,6 +30,7 @@ header {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   color: #34495e;
+  overflow: hidden;
 }
 h1,
 h2,
