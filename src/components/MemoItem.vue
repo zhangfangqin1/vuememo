@@ -48,10 +48,9 @@ export default {
 
 <style scoped>
 .memos {
-  margin: 3px;
-  padding: 5px;
-  border: 1px solid #eee;
-  border-radius: 3px;
+  margin: 3px 0;
+  padding: 5px 10px;
+  border-bottom: 1px solid #eee;
 }
 .memos p {
   text-indent: 2rem;
@@ -93,9 +92,10 @@ export default {
   transition: all 1s;
 }
 .list-leave-active {
-  transition: all .1s;
+  transition: all 0.1s;
 }
-.list-enter, .list-leave-to {
+.list-enter,
+.list-leave-to {
   opacity: 0;
   transform: translateX(30px);
 }
