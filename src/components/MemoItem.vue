@@ -3,17 +3,19 @@
     <transition-group name="list" mode="in-out">
       <div class="memos" :key="item.uid" v-for="item of memosData">
         <h3 @click="handleComplete(item)">
-          {{item.title}}
+          {{item.title.length > 50 ? item.title.substr(0,50) + '...': item.title.substr(0,50)}}
           <transition name="slide-fade" mode="out-in">
             <font-awesome-icon class="check" v-if="item.completed === true" key="checked" :icon="['fas','check']" />
             <font-awesome-icon class="not-check" v-if="item.completed === false" key="notChecked" :icon="['fas','check']" />
           </transition>
         </h3>
-        <p @click="handleClick(item.uid)">{{item.content}}</p>
         <div class="date">
           <font-awesome-icon :icon="['fas','calendar-alt']" />
           <span>{{new Date(item.timestamp).toLocaleTimeString()}}</span>
         </div>
+        <p @click="handleClick(item.uid)">
+          {{item.content.length > 100 ? item.content.substr(0,100) + '...': item.content.substr(0,100)}}
+        </p>
       </div>
     </transition-group>
   </div>
@@ -51,8 +53,8 @@ export default {
   border: 1px solid #eee;
   border-radius: 3px;
 }
-.memos h3 {
-  margin-bottom: 10px;
+.memos p {
+  text-indent: 2rem;
 }
 .memos:last-of-type {
   margin-bottom: 120px;
@@ -60,6 +62,7 @@ export default {
 .date {
   color: #999;
   font-size: 13px;
+  margin-bottom: 5px;
 }
 
 .check {

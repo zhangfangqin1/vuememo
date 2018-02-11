@@ -43,6 +43,13 @@ export default {
       add_memo: mutationType.ADD_MEMO
     }),
     handleSubmitBtn(e) {
+      if (this.memo_title.length === 0 || this.memo_content.length === 0) {
+        Toast({
+          message: '标题或内容不能为空',
+          position: 'middle'
+        });
+        return false;
+      }
       this.add_memo({
         uid: utils.uid(),
         categoryId: this.$store.state.type.indexOf(this.memo_category_id),
