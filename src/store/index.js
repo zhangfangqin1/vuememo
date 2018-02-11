@@ -11,6 +11,7 @@ const store = new Vuex.Store({
     msg: '这里显示一些紧急通知类消息',
     type: ['工作', '学习', '生活'],
     displayType: true,
+    sortByTimeType: true,
     memos: [{
       uid: '4053377u49mkby',
       categoryId: 0,
@@ -71,6 +72,8 @@ const store = new Vuex.Store({
     },
     [mutationType.SWITCH_DISPLAY](state) {
       this.state.displayType = !this.state.displayType;
+    }, [mutationType.SWITCH_BY_TIME](state) {
+      this.state.sortByTimeType = !this.state.sortByTimeType;
     }
   }
 });

@@ -32,7 +32,8 @@ export default {
   computed: {
     ...mapState({
       msg: "msg",
-      memos: "memos"
+      memos: "memos",
+      sortByTimeType: "sortByTimeType"
     }),
     incomplete: function() {
       return this.memos.filter(item => {
@@ -43,6 +44,9 @@ export default {
       return this.memos.filter(item => {
         return item.completed === true;
       });
+    },
+    ascByTime: function() {
+      // sort...tbd...
     }
   },
   methods: {

@@ -56,6 +56,12 @@ export default {
           method: () => {
             this.switch_display();
           }
+        },
+        {
+          name: "按时间排序⇩⇧",
+          method: () => {
+            this.switch_by_time();
+          }
         }
       ]
     };
@@ -63,7 +69,8 @@ export default {
   methods: {
     ...mapMutations({
       drop_memo: mutationType.DROP_MEMO,
-      switch_display: mutationType.SWITCH_DISPLAY
+      switch_display: mutationType.SWITCH_DISPLAY,
+      switch_by_time: mutationType.SWITCH_BY_TIME
     }),
     handleShowActionSheet(e) {
       this.isSheetVisible = true;
