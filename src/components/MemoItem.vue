@@ -1,19 +1,21 @@
 <template>
   <div>
-    <div class="memos" :key="item.uid" v-for="item of memosData">
-      <h3 @click="handleComplete(item)">
-        {{item.title}}
-        <transition name="slide-fade" mode="out-in">
-          <font-awesome-icon class="check" v-if="item.completed === true" key="checked" :icon="['fas','check']" />
-          <font-awesome-icon class="not-check" v-if="item.completed === false" key="notChecked" :icon="['fas','check']" />
-        </transition>
-      </h3>
-      <p @click="handleClick(item.uid)">{{item.content}}</p>
-      <div class="date">
-        <font-awesome-icon :icon="['fas','calendar-alt']" />
-        <span>{{new Date(item.timestamp).toLocaleTimeString()}}</span>
+    <transition-group name="list" mode="in-out">
+      <div class="memos" :key="item.uid" v-for="item of memosData">
+        <h3 @click="handleComplete(item)">
+          {{item.title}}
+          <transition name="slide-fade" mode="out-in">
+            <font-awesome-icon class="check" v-if="item.completed === true" key="checked" :icon="['fas','check']" />
+            <font-awesome-icon class="not-check" v-if="item.completed === false" key="notChecked" :icon="['fas','check']" />
+          </transition>
+        </h3>
+        <p @click="handleClick(item.uid)">{{item.content}}</p>
+        <div class="date">
+          <font-awesome-icon :icon="['fas','calendar-alt']" />
+          <span>{{new Date(item.timestamp).toLocaleTimeString()}}</span>
+        </div>
       </div>
-    </div>
+    </transition-group>
   </div>
 </template>
 
@@ -71,7 +73,7 @@ export default {
   opacity: 0.1;
   font-size: 36px;
 }
-
+/* 是否完成按钮动效 */
 .slide-fade-enter-active {
   transition: all 0.2s ease;
 }
@@ -82,5 +84,16 @@ export default {
 .slide-fade-leave-to {
   transform: translateX(10px);
   opacity: 0;
+}
+/* memo笔记动效 */
+.list-enter-active {
+  transition: all 1s;
+}
+.list-leave-active {
+  transition: all .1s;
+}
+.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>

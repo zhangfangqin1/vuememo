@@ -1,22 +1,13 @@
 <template>
   <div>
-    <!-- 首页 -->
-    <mt-header v-if="currentRouteName === 'Index'" class="header" :title="strTitle">
-      <mt-button @click="handleCreate" slot="right">
-        <font-awesome-icon :icon="['fas','plus']" />
-      </mt-button>
-    </mt-header>
-    <!--  -->
-    <!-- 非首页 -->
-    <mt-header v-if="currentRouteName !== 'Index'" class="header" :title="strTitle">
-      <mt-button @click="handleBack" slot="left">
+    <mt-header class="header" :title="strTitle">
+      <mt-button v-if="currentRouteName !== 'Index'" @click="handleBack" slot="left">
         <font-awesome-icon :icon="['fas','chevron-left']" />
       </mt-button>
       <mt-button @click="handleShowActionSheet" slot="right">
         <font-awesome-icon :icon="['fas','bars']" />
       </mt-button>
     </mt-header>
-    <!--  -->
     <mt-actionsheet :actions="arrActions" v-model="isSheetVisible"></mt-actionsheet>
   </div>
 </template>

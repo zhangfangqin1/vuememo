@@ -10,8 +10,8 @@
       <mt-tab-item @click.native="handleShowIncomplete" id="未完成">
         <font-awesome-icon class="icon" :icon="['far','circle']" />
       </mt-tab-item>
-      <mt-tab-item id="筛选">
-        <font-awesome-icon class="icon" :icon="['far','folder']" />
+      <mt-tab-item @click.native="handleCreate" id="创建">
+        <font-awesome-icon class="icon" :icon="['far','edit']" />
       </mt-tab-item>
     </mt-tabbar>
   </div>
@@ -34,6 +34,9 @@ export default {
     },
     handleShowIncomplete() {
       this.$emit("handleShowIncomplete");
+    },
+    handleCreate() {
+      this.$router.push({ path: "/new" });
     }
   }
 };
