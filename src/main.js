@@ -15,7 +15,7 @@ import regular from '@fortawesome/fontawesome-free-regular'
 fontawesome.library.add(solid);
 fontawesome.library.add(regular);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = true;
 Vue.use(MintUI)
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

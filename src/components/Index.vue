@@ -3,7 +3,8 @@
     <Header/>
     <mt-cell v-show="msg.length" title="通知" :value="msg"></mt-cell>
     <div id="memos">
-      <MemoItem :memosData="currentData"></MemoItem>
+      <MemoItem v-if="sortByTimeType" :memosData="ascByTimeMemo"></MemoItem>
+      <MemoItem v-if="!sortByTimeType" :memosData="descByTimeMemo"></MemoItem>
     </div>
     <Tabbar @handleShowAll="handleShowAll" @handleShowComplete="handleShowComplete" @handleShowIncomplete="handleShowIncomplete" />
   </div>
@@ -34,14 +35,56 @@ export default {
       msg: "msg",
       memos: "memos",
       sortByTimeType: "sortByTimeType"
-    })
-  },
-  watch: {
-    sortByTimeType: function(newValue, oldValue) {
-      if (newValue) {
-        this.handleAscByTime();
-      } else {
-        this.handleDescByTime();
+    }),
+    allMemo: {
+      get: function() {
+        return this.$store.state.memos;
+      }
+    },
+    completedMemo: {
+      get: function() {
+        return this.memos.filter(item => {
+          return item.completed === true;
+        });
+      }
+    },
+    incompleteMemo: {
+      get: function() {
+        return this.memos.filter(item => {
+          return item.completed === false;
+        });
+      }
+    },
+    ascByTimeMemo: {
+      get: function() {
+        let arr = this.currentData;
+        for (let i = 0; i < arr.length - 1; i++) {
+          for (let j = i + 1; j < arr.length; j++) {
+            if (arr[i].timestamp < arr[j].timestamp) {
+              let temp = arr[j];
+              arr[j] = arr[i];
+              arr[i] = temp;
+            }
+          }
+        }
+        arr = arr.map(item => item);
+        return arr;
+      }
+    },
+    descByTimeMemo: {
+      get: function() {
+        let arr = this.currentData;
+        for (let i = 0; i < arr.length - 1; i++) {
+          for (let j = i + 1; j < arr.length; j++) {
+            if (arr[i].timestamp > arr[j].timestamp) {
+              let temp = arr[j];
+              arr[j] = arr[i];
+              arr[i] = temp;
+            }
+          }
+        }
+        arr = arr.map(item => item);
+        return arr;
       }
     }
   },
@@ -51,46 +94,13 @@ export default {
       add_memo: mutationType.ADD_MEMO
     }),
     handleShowAll() {
-      this.currentData = this.$store.state.memos;
+      this.currentData = this.allMemo;
     },
     handleShowComplete() {
-      this.currentData = this.memos.filter(item => {
-        return item.completed === true;
-      });
+      this.currentData = this.completedMemo;
     },
     handleShowIncomplete() {
-      this.currentData = this.memos.filter(item => {
-        return item.completed === false;
-      });
-    },
-    handleAscByTime() {
-      let arr = this.currentData;
-      for (let i = 0; i < arr.length - 1; i++) {
-        for (let j = i + 1; j < arr.length; j++) {
-          if (arr[i].timestamp < arr[j].timestamp) {
-            let temp = arr[j];
-            arr[j] = arr[i];
-            arr[i] = temp;
-          }
-        }
-      }
-
-      arr = arr.map(item => item);
-      this.currentData = arr;
-    },
-    handleDescByTime() {
-      let arr = this.currentData;
-      for (let i = 0; i < arr.length - 1; i++) {
-        for (let j = i + 1; j < arr.length; j++) {
-          if (arr[i].timestamp > arr[j].timestamp) {
-            let temp = arr[j];
-            arr[j] = arr[i];
-            arr[i] = temp;
-          }
-        }
-      }
-      arr = arr.map(item => item);
-      this.currentData = arr;
+      this.currentData = this.incompleteMemo;
     }
   }
 };
