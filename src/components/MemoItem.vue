@@ -58,20 +58,18 @@ export default {
 
 <style scoped>
 .memos {
-  margin: 3px 0;
-  padding: 5px 10px;
-  border-bottom: 1px solid #eee;
+  margin: 0.1875rem 0;
+  padding: 0.1875rem 0.3125rem;
+  border-bottom: 0.0625rem solid #eee;
 }
-.memos p {
-  text-indent: 2rem;
-}
+
 .memos:last-of-type {
-  margin-bottom: 120px;
+  margin-bottom: 7.5rem;
 }
 .date {
   color: #999;
   font-size: 13px;
-  margin-bottom: 5px;
+  margin-bottom: 0.3125rem;
 }
 .title {
   display: inline;
@@ -83,7 +81,6 @@ export default {
   font-size: 20px;
 }
 .not-check {
-  z-index: 999;
   color: #888;
   font-size: 20px;
 }

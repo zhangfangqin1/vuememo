@@ -31,6 +31,7 @@ header {
   -webkit-font-smoothing: antialiased;
   color: #34495e;
   overflow-x: hidden;
+  font-size: 16px;
 }
 h1,
 h2,
@@ -64,12 +65,12 @@ h6 {
 .slide-right-leave-to {
   opacity: 0;
   max-height: 0;
-  transform: translateX(30px);
+  transform: translateX(1.875rem);
 }
 .slide-right-enter-to,
 .slide-right-leave {
   opacity: 1;
-  max-height: 300px;
+  max-height: 18.75rem; /* 300/16 */
 }
 .slide-right-enter-active {
   transition: all 1s ease;

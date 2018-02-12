@@ -83,31 +83,33 @@ export default {
 
 <style scoped>
 .container {
-  margin: 0 3px;
-  margin-bottom: 5%;
+  margin: 0 0.1875rem;
+  margin-bottom: 0.1875rem;
 }
 .title {
   text-align: center;
-  margin: 3% 0;
+  margin: 0.1875rem 0;
 }
 .timestamp {
   color: #a9a9a9;
-  font-size: 14px;
+  font-size: 13px;
   text-align: right;
-  margin-right: 10%;
-  margin-bottom: 3%;
+  margin-right: 0.3125rem;
+  margin-bottom: 0.1875rem;
 }
 .content {
   height: 100%;
-  text-indent: 2rem;
-  margin-bottom: 6%;
+  text-indent: 0.8125rem;
+  margin-bottom: 3.125rem;
 }
 .button-group {
+  background: #fff;
+  opacity: 0.9;
   bottom: 0;
-  position: absolute;
+  position: fixed;
   width: 100%;
 }
 .button-group button {
-  margin-bottom: 3px;
+  margin-bottom: 0.0625rem;
 }
 </style>

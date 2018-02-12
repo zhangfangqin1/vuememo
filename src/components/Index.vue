@@ -110,13 +110,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.new-memo {
-  position: fixed;
-  right: 10%;
-  bottom: 5%;
-  font-size: 64px;
-  color: #26a2ff;
-}
-</style>

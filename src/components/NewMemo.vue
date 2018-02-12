@@ -80,7 +80,7 @@ textarea {
   height: 50%;
 }
 .new-memo {
-  margin-bottom: 3px;
+  margin-bottom: 0.0625rem;
 }
 .button-group {
   bottom: 0;
