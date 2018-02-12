@@ -58,32 +58,14 @@ export default {
     },
     ascByTimeMemo: {
       get: function() {
-        let arr = this.currentData;
-        for (let i = 0; i < arr.length - 1; i++) {
-          for (let j = i + 1; j < arr.length; j++) {
-            if (arr[i].timestamp < arr[j].timestamp) {
-              let temp = arr[j];
-              arr[j] = arr[i];
-              arr[i] = temp;
-            }
-          }
-        }
+        let arr = util.bubbleSort(this.currentData, "timestamp", "asc");
         arr = arr.map(item => item);
         return arr;
       }
     },
     descByTimeMemo: {
       get: function() {
-        let arr = this.currentData;
-        for (let i = 0; i < arr.length - 1; i++) {
-          for (let j = i + 1; j < arr.length; j++) {
-            if (arr[i].timestamp > arr[j].timestamp) {
-              let temp = arr[j];
-              arr[j] = arr[i];
-              arr[i] = temp;
-            }
-          }
-        }
+        let arr = util.bubbleSort(this.currentData, "timestamp", "desc");
         arr = arr.map(item => item);
         return arr;
       }

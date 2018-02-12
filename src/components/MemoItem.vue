@@ -1,26 +1,42 @@
 <template>
   <div>
     <div class="memos" :key="item.uid" v-for="item of memosData">
+      <!-- 标记是否完成 -->
       <span @click="handleComplete(item)">
         <transition name="scale-fade" mode="out-in">
           <font-awesome-icon class="check" v-if="item.completed === true" key="checked" :icon="['far','check-circle']" />
           <font-awesome-icon class="not-check" v-if="item.completed === false" key="notChecked" :icon="['far','circle']" />
         </transition>
       </span>
+      <!--  -->
+      <!-- 标题 -->
       <h3 @click="handleClick(item.uid)" class="title">
         {{item.title.length > 50 ? item.title.substr(0,50) + '...': item.title.substr(0,50)}}
       </h3>
+      <!--  -->
+      <!-- 内容 -->
       <transition name="slide-right" mode="out-in">
         <div v-if="displayType">
-          <div class="date">
-            <font-awesome-icon :icon="['fas','calendar-alt']" />
-            <span>{{new Date(item.timestamp).toLocaleTimeString()}}</span>
+          <!-- 日期 -->
+          <div class="tag">
+            <span class="tag-message">
+              <font-awesome-icon :icon="['far','calendar-alt']" />
+              <span>{{new Date(item.timestamp).toLocaleTimeString()}}</span>
+            </span>
+            <span class="tag-message">
+              <font-awesome-icon :icon="['far','bookmark']" />
+              <span>{{memoType[item.categoryId]}}</span>
+            </span>
           </div>
+          <!--  -->
+          <!-- 文本 -->
           <p @click="handleClick(item.uid)">
             {{item.content.length > 100 ? item.content.substr(0,100) + '...': item.content.substr(0,100)}}
           </p>
+          <!--  -->
         </div>
       </transition>
+      <!--  -->
     </div>
   </div>
 </template>
@@ -36,7 +52,8 @@ export default {
   props: ["memosData"],
   computed: {
     ...mapState({
-      displayType: "displayType"
+      displayType: "displayType",
+      memoType: "type"
     })
   },
   methods: {
@@ -66,10 +83,13 @@ export default {
 .memos:last-of-type {
   margin-bottom: 7.5rem;
 }
-.date {
+.tag {
   color: #999;
   font-size: 13px;
   margin: 0.125rem 0;
+}
+.tag .tag-message {
+  margin-right: .3125rem /* 5/16 */;
 }
 .title {
   display: inline;
