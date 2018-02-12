@@ -83,8 +83,8 @@ const store = new Vuex.Store({
         }
       });
     },
-    [mutationType.DROP_MEMO](state) { //tbd...不能更新memos 同步刷新数据
-      state.memos = [];
+    [mutationType.DROP_MEMO](state) {
+      state.memos.splice(0, state.memos.length);
     },
     [mutationType.CHECK_MEMO](state, uid) {
       state.memos.forEach((elem, index) => {

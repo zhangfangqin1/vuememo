@@ -27,7 +27,7 @@ export default {
   },
   data: function() {
     return {
-      currentData: this.$store.state.memos // tbd... 数据不能更新
+      currentData: this.$store.state.memos
     };
   },
   computed: {
