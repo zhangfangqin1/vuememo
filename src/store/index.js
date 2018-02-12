@@ -72,7 +72,8 @@ const store = new Vuex.Store({
     },
     [mutationType.SWITCH_DISPLAY](state) {
       this.state.displayType = !this.state.displayType;
-    }, [mutationType.SWITCH_BY_TIME](state) {
+    },
+    [mutationType.SWITCH_BY_TIME](state) {
       this.state.sortByTimeType = !this.state.sortByTimeType;
     }
   }

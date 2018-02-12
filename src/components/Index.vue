@@ -34,19 +34,15 @@ export default {
       msg: "msg",
       memos: "memos",
       sortByTimeType: "sortByTimeType"
-    }),
-    incomplete: function() {
-      return this.memos.filter(item => {
-        return item.completed === false;
-      });
-    },
-    completed: function() {
-      return this.memos.filter(item => {
-        return item.completed === true;
-      });
-    },
-    ascByTime: function() {
-      // sort...tbd...
+    })
+  },
+  watch: {
+    sortByTimeType: function(newValue, oldValue) {
+      if (newValue) {
+        this.handleAscByTime();
+      } else {
+        this.handleDescByTime();
+      }
     }
   },
   methods: {
@@ -58,10 +54,43 @@ export default {
       this.currentData = this.$store.state.memos;
     },
     handleShowComplete() {
-      this.currentData = this.completed;
+      this.currentData = this.memos.filter(item => {
+        return item.completed === true;
+      });
     },
     handleShowIncomplete() {
-      this.currentData = this.incomplete;
+      this.currentData = this.memos.filter(item => {
+        return item.completed === false;
+      });
+    },
+    handleAscByTime() {
+      let arr = this.currentData;
+      for (let i = 0; i < arr.length - 1; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+          if (arr[i].timestamp < arr[j].timestamp) {
+            let temp = arr[j];
+            arr[j] = arr[i];
+            arr[i] = temp;
+          }
+        }
+      }
+
+      arr = arr.map(item => item);
+      this.currentData = arr;
+    },
+    handleDescByTime() {
+      let arr = this.currentData;
+      for (let i = 0; i < arr.length - 1; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+          if (arr[i].timestamp > arr[j].timestamp) {
+            let temp = arr[j];
+            arr[j] = arr[i];
+            arr[i] = temp;
+          }
+        }
+      }
+      arr = arr.map(item => item);
+      this.currentData = arr;
     }
   }
 };
