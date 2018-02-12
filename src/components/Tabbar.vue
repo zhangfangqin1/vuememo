@@ -1,13 +1,13 @@
 <template>
   <div>
     <mt-tabbar fixed v-model="selected">
-      <mt-tab-item @click.native="handleShowAll" id="全部">
+      <mt-tab-item @click.native="handleShow('all')" id="全部">
         <font-awesome-icon class="icon" :icon="['far','list-alt']" />
       </mt-tab-item>
-      <mt-tab-item @click.native="handleShowComplete" id="已完成">
+      <mt-tab-item @click.native="handleShow('completed')" id="已完成">
         <font-awesome-icon class="icon" :icon="['far','check-circle']" />
       </mt-tab-item>
-      <mt-tab-item @click.native="handleShowIncomplete" id="未完成">
+      <mt-tab-item @click.native="handleShow('incomplete')" id="未完成">
         <font-awesome-icon class="icon" :icon="['far','circle']" />
       </mt-tab-item>
       <mt-tab-item @click.native="handleCreate" id="创建">
@@ -26,14 +26,8 @@ export default {
     };
   },
   methods: {
-    handleShowAll() {
-      this.$emit("handleShowAll");
-    },
-    handleShowComplete() {
-      this.$emit("handleShowComplete");
-    },
-    handleShowIncomplete() {
-      this.$emit("handleShowIncomplete");
+    handleShow(value) {
+      this.$emit("handleShow", value);
     },
     handleCreate() {
       this.$router.push({ path: "/new" });

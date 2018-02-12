@@ -6,7 +6,7 @@
       <MemoItem v-if="sortByTimeType" :memosData="ascByTimeMemo"></MemoItem>
       <MemoItem v-if="!sortByTimeType" :memosData="descByTimeMemo"></MemoItem>
     </div>
-    <Tabbar @handleShowAll="handleShowAll" @handleShowComplete="handleShowComplete" @handleShowIncomplete="handleShowIncomplete" />
+    <Tabbar @handleShow="handleShow" />
   </div>
 </template>
 
@@ -17,6 +17,7 @@ import mutationType from "../store/mutation";
 import Header from "@/components/Header";
 import Tabbar from "@/components/Tabbar";
 import MemoItem from "@/components/MemoItem";
+import util from "../utils";
 
 export default {
   name: "Index",
@@ -93,14 +94,18 @@ export default {
       set_demotitle: mutationType.SET_DEMOTITLE,
       add_memo: mutationType.ADD_MEMO
     }),
-    handleShowAll() {
-      this.currentData = this.allMemo;
-    },
-    handleShowComplete() {
-      this.currentData = this.completedMemo;
-    },
-    handleShowIncomplete() {
-      this.currentData = this.incompleteMemo;
+    handleShow(value) {
+      switch (value) {
+        case "all":
+          this.currentData = this.allMemo;
+          break;
+        case "completed":
+          this.currentData = this.completedMemo;
+          break;
+        case "incomplete":
+          this.currentData = this.incompleteMemo;
+          break;
+      }
     }
   }
 };
