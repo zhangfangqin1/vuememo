@@ -1,5 +1,4 @@
 const mutationTypes = {
-  SET_DEMOTITLE: 'SET_DEMOTITLE',
   // memo
   ADD_MEMO: 'ADD_MEMO',
   MODIFY_MEMO: 'MODIFY_MEMO',

@@ -1,7 +1,6 @@
 <template>
   <div>
     <Header/>
-    <mt-cell v-show="msg.length" title="通知" :value="msg"></mt-cell>
     <div id="memos">
       <MemoItem v-if="sortByTimeType" :memosData="ascByTimeMemo"></MemoItem>
       <MemoItem v-if="!sortByTimeType" :memosData="descByTimeMemo"></MemoItem>
@@ -28,7 +27,7 @@ export default {
   },
   data: function() {
     return {
-      currentData: this.$store.state.memos
+      currentData: this.$store.state.memos // tbd... 数据不能更新
     };
   },
   computed: {
@@ -39,7 +38,7 @@ export default {
     }),
     allMemo: {
       get: function() {
-        return this.$store.state.memos;
+        return this.memos;
       }
     },
     completedMemo: {
@@ -73,7 +72,6 @@ export default {
   },
   methods: {
     ...mapMutations({
-      set_demotitle: mutationType.SET_DEMOTITLE,
       add_memo: mutationType.ADD_MEMO
     }),
     handleShow(value) {

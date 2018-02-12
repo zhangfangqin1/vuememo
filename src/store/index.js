@@ -4,11 +4,12 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 import mutationType from "./mutation";
+import actionType from "./action";
+import mutation from './mutation';
 
 const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
-    msg: '这里显示一些紧急通知类消息',
     type: ['工作', '学习', '生活'],
     displayType: true,
     sortByTimeType: true,
@@ -35,10 +36,39 @@ const store = new Vuex.Store({
       timestamp: 1518020887038
     }]
   },
-  mutations: {
-    [mutationType.SET_DEMOTITLE](state, value) {
-      state.msg = value;
+  actions: {
+    [actionType.CHECK_MEMO]({ commit }, uid) { // context
+      return new Promise((response, reject) => {
+        commit(mutationType.CHECK_MEMO, uid);
+        response();
+      });
     },
+    [actionType.ADD_MEMO]({ commit }, obj) { // context
+      return new Promise((response, reject) => {
+        commit(mutationType.ADD_MEMO, obj);
+        response();
+      });
+    },
+    [actionType.MODIFY_MEMO]({ commit }, obj) {
+      return new Promise((response, reject) => {
+        commit(mutationType.MODIFY_MEMO, obj);
+        response();
+      });
+    },
+    [actionType.DELETE_MEMO]({ commit }, uid) {
+      return new Promise((response, reject) => {
+        commit(mutationType.DELETE_MEMO, uid);
+        response();
+      });
+    },
+    [actionType.DROP_MEMO]({ commit }) {
+      return new Promise((response, reject) => {
+        commit(mutationType.DROP_MEMO);
+        response();
+      });
+    }
+  },
+  mutations: {
     [mutationType.ADD_MEMO](state, value) {
       state.memos.unshift(value);
     },
@@ -53,7 +83,7 @@ const store = new Vuex.Store({
         }
       });
     },
-    [mutationType.DROP_MEMO](state, index) {
+    [mutationType.DROP_MEMO](state) { //tbd...不能更新memos 同步刷新数据
       state.memos = [];
     },
     [mutationType.CHECK_MEMO](state, uid) {

@@ -14,10 +14,11 @@
 
 <script>
 import { MessageBox } from "mint-ui";
-import { mapMutations } from "Vuex";
+import { mapMutations, mapActions } from "Vuex";
 import { Toast } from "mint-ui";
 
 import mutationType from "../store/mutation";
+import actionType from "../store/action";
 
 export default {
   name: "Header",
@@ -39,11 +40,18 @@ export default {
             MessageBox.confirm("确定执行此操作?", "提示").then(
               () => {
                 console.log("确认删除所有笔记");
-                this.drop_memo();
-                Toast({
-                  message: "操作成功",
-                  duration: 1000
-                });
+                this.drop_memo()
+                  .then(() => {
+                    Toast({
+                      message: "操作成功"
+                    });
+                  })
+                  .catch(e => {
+                    Toast({
+                      message: "操作失败，请重试"
+                    });
+                    console.log(e);
+                  });
               },
               () => {
                 console.log("取消");
@@ -68,9 +76,11 @@ export default {
   },
   methods: {
     ...mapMutations({
-      drop_memo: mutationType.DROP_MEMO,
       switch_display: mutationType.SWITCH_DISPLAY,
       switch_by_time: mutationType.SWITCH_BY_TIME
+    }),
+    ...mapActions({
+      drop_memo: actionType.DROP_MEMO
     }),
     handleShowActionSheet(e) {
       this.isSheetVisible = true;
@@ -89,5 +99,6 @@ export default {
 .header {
   background: #fff;
   color: #26a2ff;
+  border-bottom: 0.0625rem solid #eee; /* 1/16 */
 }
 </style>

@@ -15,12 +15,11 @@
 </template>
 
 <script>
-import { mapState } from "Vuex";
-import { mapMutations } from "Vuex";
+import { mapState, mapActions } from "Vuex";
 import { Toast } from "mint-ui";
 import utils from "../utils";
 
-import mutationType from "../store/mutation";
+import actionType from "../store/action";
 import Header from "@/components/Header";
 
 export default {
@@ -36,8 +35,8 @@ export default {
     };
   },
   methods: {
-    ...mapMutations({
-      modify_memo: mutationType.MODIFY_MEMO
+    ...mapActions({
+      modify_memo: actionType.MODIFY_MEMO
     }),
     handleSubmitBtn() {
       let uid = this.$route.params.id;
@@ -47,10 +46,17 @@ export default {
         title: this.memo_title,
         content: this.memo_content,
         timestamp: Date.now()
-      });
-      Toast({
-        message: `修改成功`
-      });
+      })
+        .then(() => {
+          Toast({
+            message: `修改成功`
+          });
+        })
+        .catch(e => {
+          Toast({
+            message: `修改失败，请重试`
+          });
+        });
       this.$router.go(-1);
     },
     handleCancelBtn() {
@@ -61,7 +67,6 @@ export default {
     let uid = this.$route.params.id;
     this.$store.state.memos.forEach(elem => {
       if (elem.uid === uid) {
-        console.log(elem);
         // render
         [this.memo_category_id, this.memo_title, this.memo_content] = [
           this.$store.state.type[elem.categoryId],

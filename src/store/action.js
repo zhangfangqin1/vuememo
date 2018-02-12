@@ -1,0 +1,10 @@
+const actionType = {
+  // memo
+  CHECK_MEMO: 'CHECK_MEMO',
+  ADD_MEMO: 'ADD_MEMO',
+  MODIFY_MEMO: 'MODIFY_MEMO',
+  DELETE_MEMO: 'DELETE_MEMO',
+  DROP_MEMO: 'DROP_MEMO'
+}
+
+export default actionType;

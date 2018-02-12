@@ -42,9 +42,8 @@
 </template>
 
 <script>
-import { mapMutations } from "Vuex";
-import { mapState } from "Vuex";
-import mutationType from "../store/mutation";
+import { mapState, mapActions } from "Vuex";
+import actionType from "../store/action";
 import { Toast } from "mint-ui";
 
 export default {
@@ -57,17 +56,25 @@ export default {
     })
   },
   methods: {
-    ...mapMutations({
-      check_memo: mutationType.CHECK_MEMO
+    ...mapActions({
+      check_memo: actionType.CHECK_MEMO
     }),
     handleClick(uid) {
       this.$router.push({ path: "/" + uid });
     },
     handleComplete(item) {
-      this.check_memo(item.uid);
-      Toast({
-        message: `标记${item.completed ? "完成" : "未完成"}`
-      });
+      this.check_memo(item.uid)
+        .then(() => {
+          Toast({
+            message: `标记${item.completed ? "完成" : "待完成"}`
+          });
+        })
+        .catch(e => {
+          Toast({
+            message: `标记失败，请重试`
+          });
+          console.log(e);
+        });
     }
   }
 };
@@ -89,7 +96,7 @@ export default {
   margin: 0.125rem 0;
 }
 .tag .tag-message {
-  margin-right: .3125rem /* 5/16 */;
+  margin-right: 0.3125rem;
 }
 .title {
   display: inline;

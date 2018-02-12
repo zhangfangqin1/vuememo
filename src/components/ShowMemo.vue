@@ -14,11 +14,10 @@
 </template>
 
 <script>
-import { mapState } from "Vuex";
-import { mapMutations } from "Vuex";
+import { mapState, mapActions } from "Vuex";
 import { Toast } from "mint-ui";
 import { MessageBox } from "mint-ui";
-import mutationType from "../store/mutation";
+
 import Header from "@/components/Header";
 
 export default {
@@ -39,7 +38,7 @@ export default {
     })
   },
   methods: {
-    ...mapMutations({
+    ...mapActions({
       delete_memo: "DELETE_MEMO"
     }),
     handleModify() {
@@ -51,11 +50,18 @@ export default {
       MessageBox.confirm("确定删除此笔记？", "提示").then(
         () => {
           console.log("确认删除笔记");
-          this.delete_memo(uid);
+          this.delete_memo(uid)
+            .then(() => {
+              Toast({
+                message: "已删除"
+              });
+            })
+            .catch(e => {
+              Toast({
+                message: "删除失败，请重试"
+              });
+            });
           this.$router.push({ path: "/" });
-          Toast({
-            message: "已删除"
-          });
         },
         () => {
           console.log("取消");

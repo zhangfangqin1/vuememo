@@ -13,12 +13,11 @@
 </template>
 
 <script>
-import { mapState } from "Vuex";
-import { mapMutations } from "Vuex";
+import { mapState, mapActions } from "Vuex";
 import { Toast } from "mint-ui";
 import utils from "../utils";
 
-import mutationType from "../store/mutation";
+import actionType from "../store/action";
 import Header from "@/components/Header";
 
 export default {
@@ -39,8 +38,8 @@ export default {
     })
   },
   methods: {
-    ...mapMutations({
-      add_memo: mutationType.ADD_MEMO
+    ...mapActions({
+      add_memo: actionType.ADD_MEMO
     }),
     handleSubmitBtn(e) {
       if (this.memo_title.length === 0 || this.memo_content.length === 0) {
@@ -57,11 +56,19 @@ export default {
         content: this.memo_content,
         completed: false,
         timestamp: Date.now()
-      });
-      Toast({
-        message: "发布成功",
-        duration: 1000
-      });
+      })
+        .then(() => {
+          Toast({
+            message: "发布成功"
+          });
+        })
+        .catch(e => {
+          Toast({
+            message: "发布失败，请重试"
+          });
+          console.log(e);
+        });
+
       this.$router.push({ path: "/" });
     },
     handleCancelBtn() {
