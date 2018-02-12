@@ -69,7 +69,7 @@ export default {
 .date {
   color: #999;
   font-size: 13px;
-  margin-bottom: 0.3125rem;
+  margin: 0.125rem 0;
 }
 .title {
   display: inline;
