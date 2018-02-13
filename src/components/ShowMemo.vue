@@ -2,12 +2,13 @@
   <div>
     <Header/>
     <div class="container">
-      <h3 class="title">{{title}}</h3>
-      <p class="timestamp">{{new Date(timestamp).toLocaleTimeString()}}</p>
-      <p class="content">{{content}}</p>
+      <h3 class="title">{{memoItem.title}}</h3>
+      <p class="timestamp">{{new Date(memoItem.timestamp).toLocaleTimeString()}}</p>
+      <p class="content">{{memoItem.content}}</p>
     </div>
     <div class="button-group">
       <mt-button @click.native="handleModify" type="primary" plain size="large">修改</mt-button>
+      <mt-button plain size="large" class="new-memo" @click.native="handleStar" type="default">{{ memoItem.star ? '取消收藏' : '收藏' }}</mt-button>
       <mt-button @click.native="handleDelete" type="danger" plain size="large">删除</mt-button>
     </div>
   </div>
@@ -25,22 +26,37 @@ export default {
   components: {
     Header
   },
-  data: function() {
-    return {
-      title: "loading...",
-      timestamp: "loading...",
-      content: "loading..."
-    };
-  },
   computed: {
     ...mapState({
       memos: "memos"
-    })
+    }),
+    memoItem: function() {
+      let uid = this.$route.params.id;
+      return this.memos.find((item, index) => {
+        return item.uid === uid;
+      });
+    }
   },
   methods: {
     ...mapActions({
-      delete_memo: "DELETE_MEMO"
+      delete_memo: "DELETE_MEMO",
+      star_memo: "STAR_MEMO"
     }),
+    handleStar() {
+      let uid = this.$route.params.id;
+      this.star_memo(uid)
+        .then(() => {
+          Toast({
+            message: `${this.memoItem.star ? "收藏成功" : "取消收藏"}`
+          });
+        })
+        .catch(e => {
+          Toast({
+            message: `收藏失败，请重试`
+          });
+          console.log(e);
+        });
+    },
     handleModify() {
       let uid = this.$route.params.id;
       this.$router.push({ path: `/modify/${uid}` });
@@ -68,21 +84,6 @@ export default {
         }
       );
     }
-  },
-  mounted: function() {
-    let uid = this.$route.params.id;
-    this.memos.forEach((elem, index) => {
-      let item = [];
-      if (uid === elem.uid) {
-        item = this.memos[index];
-        // render
-        [this.title, this.content, this.timestamp] = [
-          item.title,
-          item.content,
-          item.timestamp
-        ];
-      }
-    });
   }
 };
 </script>

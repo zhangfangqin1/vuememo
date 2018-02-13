@@ -48,6 +48,14 @@ const store = new Vuex.Store({
         response();
       });
     },
+    [actionType.STAR_MEMO]({
+      commit
+    }, uid) { // context
+      return new Promise((response, reject) => {
+        commit(mutationType.STAR_MEMO, uid);
+        response();
+      });
+    },
     [actionType.ADD_MEMO]({
       commit
     }, obj) { // context
@@ -103,6 +111,13 @@ const store = new Vuex.Store({
       state.memos.forEach((elem, index) => {
         if (uid === elem.uid) {
           elem.completed = !elem.completed;
+        }
+      });
+    },
+    [mutationType.STAR_MEMO](state, uid) {
+      state.memos.forEach((elem, index) => {
+        if (uid === elem.uid) {
+          elem.star = !elem.star;
         }
       });
     },

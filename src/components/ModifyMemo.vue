@@ -9,7 +9,6 @@
       </div>
       <div class="button-group">
         <mt-button plain size="large" class="new-memo" @click.native="handleSubmitBtn" type="primary">确认提交</mt-button>
-        <mt-button plain size="large" class="new-memo" @click.native="handleSubmitBtn" type="default">{{ this.memo_star ? '取消收藏' : '收藏' }}</mt-button>
       </div>
 
     </div>
@@ -43,7 +42,6 @@ export default {
     ...mapActions({
       modify_memo: actionType.MODIFY_MEMO
     }),
-    handleFocusTxt(e) {},
     handleSubmitBtn() {
       let uid = this.$route.params.id;
       this.modify_memo({
