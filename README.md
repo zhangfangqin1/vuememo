@@ -2,6 +2,12 @@
 
 > 基于 Vue.js 的简单记事本 SPA ，Mint-UI、Vue、VueRouter、Vuex，使用localStorage作为数据本地持久化，并支持使用Markdown格式笔记，主要功能有增查改删笔记、按条件过滤和排序笔记、并支持文字和图片等形式的笔记
 
+## 🚀 DEMO
+
+点击这里看演示：[DEMO](http://alljs.cc:8080)
+
+源代码：[github](https://github.com/oliyg/vuememo)
+
 ## 🚨 BUILD SETUP
 
 ``` bash
@@ -27,8 +33,8 @@ npm run build
   - ✔️按创建时间排序
   - ✔️按完成情况进行过滤
   - ✔️按类别进行过滤
+  - ✔️收藏、取消收藏和显示收藏笔记
   - 通过localStorage对象的数据本地持久化
-  - 收藏和显示收藏笔记
 - v3
   - 支持Markdown格式
   - 实时保存笔记
