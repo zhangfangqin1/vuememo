@@ -78,4 +78,12 @@ h6 {
 .slide-right-leave-active {
   transition: all 0.3s ease;
 }
+/* mintUI v-modal */
+.v-modal {
+  background: #fff;
+  opacity: 0.9;
+}
+.mint-cell-label {
+  font-size: 14px;
+}
 </style>

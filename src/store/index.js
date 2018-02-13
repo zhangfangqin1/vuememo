@@ -37,31 +37,41 @@ const store = new Vuex.Store({
     }]
   },
   actions: {
-    [actionType.CHECK_MEMO]({ commit }, uid) { // context
+    [actionType.CHECK_MEMO]({
+      commit
+    }, uid) { // context
       return new Promise((response, reject) => {
         commit(mutationType.CHECK_MEMO, uid);
         response();
       });
     },
-    [actionType.ADD_MEMO]({ commit }, obj) { // context
+    [actionType.ADD_MEMO]({
+      commit
+    }, obj) { // context
       return new Promise((response, reject) => {
         commit(mutationType.ADD_MEMO, obj);
         response();
       });
     },
-    [actionType.MODIFY_MEMO]({ commit }, obj) {
+    [actionType.MODIFY_MEMO]({
+      commit
+    }, obj) {
       return new Promise((response, reject) => {
         commit(mutationType.MODIFY_MEMO, obj);
         response();
       });
     },
-    [actionType.DELETE_MEMO]({ commit }, uid) {
+    [actionType.DELETE_MEMO]({
+      commit
+    }, uid) {
       return new Promise((response, reject) => {
         commit(mutationType.DELETE_MEMO, uid);
         response();
       });
     },
-    [actionType.DROP_MEMO]({ commit }) {
+    [actionType.DROP_MEMO]({
+      commit
+    }) {
       return new Promise((response, reject) => {
         commit(mutationType.DROP_MEMO);
         response();

@@ -55,6 +55,28 @@ export default {
         });
       }
     },
+    work: {
+      get: function() {
+        return this.memos.filter(item => {
+          return item.categoryId === 0;
+        });
+      }
+    },
+    study: {
+      get: function() {
+        return this.memos.filter(item => {
+          return item.categoryId === 1;
+        });
+      }
+    },
+    life: {
+      get: function() {
+        return this.memos.filter(item => {
+          return item.categoryId === 2;
+        });
+      }
+    },
+    // 排序
     ascByTimeMemo: {
       get: function() {
         let arr = util.bubbleSort(this.currentData, "timestamp", "asc");
@@ -84,6 +106,15 @@ export default {
           break;
         case "incomplete":
           this.currentData = this.incompleteMemo;
+          break;
+        case "工作":
+          this.currentData = this.work;
+          break;
+        case "学习":
+          this.currentData = this.study;
+          break;
+        case "生活":
+          this.currentData = this.life;
           break;
       }
     }
