@@ -86,4 +86,12 @@ h6 {
 .mint-cell-label {
   font-size: 14px;
 }
+/* button-group */
+.button-group {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  background: #fff;
+  opacity: 0.9;
+}
 </style>

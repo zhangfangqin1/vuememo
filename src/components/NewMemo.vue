@@ -89,9 +89,4 @@ textarea {
 .new-memo {
   margin-bottom: 0.0625rem;
 }
-.button-group {
-  bottom: 0;
-  position: absolute;
-  width: 100%;
-}
 </style>
