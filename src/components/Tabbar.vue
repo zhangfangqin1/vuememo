@@ -14,6 +14,9 @@
       <mt-tab-item @click.native="handleShowPopup" id="类别">
         <font-awesome-icon class="icon" :icon="['far','bookmark']" />
       </mt-tab-item>
+      <mt-tab-item @click.native="handleShow('star')" id="收藏">
+        <font-awesome-icon class="icon" :icon="['far','star']" />
+      </mt-tab-item>
       <mt-tab-item @click.native="handleCreate" id="创建">
         <font-awesome-icon class="icon" :icon="['far','edit']" />
       </mt-tab-item>

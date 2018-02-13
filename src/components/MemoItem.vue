@@ -17,15 +17,18 @@
       <!-- 内容 -->
       <transition name="slide-right" mode="out-in">
         <div v-if="displayType">
-          <!-- 日期 -->
+          <!-- 日期、分类、收藏 -->
           <div class="tag">
             <span class="tag-message">
-              <font-awesome-icon :icon="['far','calendar-alt']" />
+              <font-awesome-icon style="color:black;opacity:0.4;" :icon="['fas','calendar-alt']" />
               <span>{{new Date(item.timestamp).toLocaleTimeString()}}</span>
             </span>
             <span class="tag-message">
-              <font-awesome-icon :icon="['far','bookmark']" />
+              <font-awesome-icon style="color:red;opacity:0.4;" :icon="['fas','bookmark']" />
               <span>{{memoType[item.categoryId]}}</span>
+            </span>
+            <span class="tag-message">
+              <font-awesome-icon v-if="item.star" style="color:gold;opacity:0.4;" :icon="['fas','star']" />
             </span>
           </div>
           <!--  -->
@@ -100,15 +103,15 @@ export default {
 }
 .title {
   display: inline;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .check {
   color: #26a2ff;
-  font-size: 20px;
+  font-size: 18px;
 }
 .not-check {
   color: #888;
-  font-size: 20px;
+  font-size: 18px;
 }
 </style>

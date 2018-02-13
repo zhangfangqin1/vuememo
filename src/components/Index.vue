@@ -55,6 +55,14 @@ export default {
         });
       }
     },
+    starMemo: {
+      get: function() {
+        return this.memos.filter(item => {
+          return item.star === true;
+        });
+      }
+    },
+    // 类别
     work: {
       get: function() {
         return this.memos.filter(item => {
@@ -106,6 +114,9 @@ export default {
           break;
         case "incomplete":
           this.currentData = this.incompleteMemo;
+          break;
+        case "star":
+          this.currentData = this.starMemo;
           break;
         case "工作":
           this.currentData = this.work;
