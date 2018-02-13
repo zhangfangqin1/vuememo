@@ -28,12 +28,12 @@ npm run build
   - ✔️按完成情况进行过滤
   - ✔️按类别进行过滤
   - 通过localStorage对象的数据本地持久化
+  - 收藏和显示收藏笔记
 - v3
   - 支持Markdown格式
   - 实时保存笔记
   - 通过base64支持保存图片
   - 通过Canvas支持绘图
-  - 收藏和显示收藏笔记
 
 ## MESSAGE ME
 
