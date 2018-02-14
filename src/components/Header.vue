@@ -1,14 +1,14 @@
 <template>
   <div>
-    <mt-header class="header" :title="strTitle">
-      <mt-button v-if="currentRouteName !== 'Index'" @click="handleBack" slot="left">
+    <mt-header class="header" :title="appTitle" @click="handleGoHome">
+      <mt-button v-if="currentComponentName !== 'Index'" @click="handleBack" slot="left">
         <font-awesome-icon :icon="['fas','chevron-left']" />
       </mt-button>
-      <mt-button v-else-if="currentRouteName === 'Index'" @click="handleShowActionSheet" slot="right">
+      <mt-button v-else-if="currentComponentName === 'Index'" @click="handleShowActionSheet" slot="right">
         <font-awesome-icon :icon="['fas','bars']" />
       </mt-button>
     </mt-header>
-    <mt-actionsheet :actions="arrActions" v-model="isSheetVisible"></mt-actionsheet>
+    <mt-actionsheet :actions="menu" v-model="isMenuVisible"></mt-actionsheet>
   </div>
 </template>
 
@@ -24,10 +24,8 @@ export default {
   name: "Header",
   data: function() {
     return {
-      strTitle: "VUEMEMO",
-      isSheetVisible: false,
-      currentRouteName: this.$route.name,
-      arrActions: [
+      isMenuVisible: false,
+      menu: [
         {
           name: "新建笔记",
           method: () => {
@@ -74,6 +72,16 @@ export default {
       ]
     };
   },
+  computed: {
+    appTitle: {
+      get: function() {
+        return "VUEMEMO";
+      }
+    },
+    currentComponentName: function() {
+      return this.$route.name;
+    }
+  },
   methods: {
     ...mapMutations({
       switch_display: mutationType.SWITCH_DISPLAY,
@@ -83,7 +91,10 @@ export default {
       drop_memo: actionType.DROP_MEMO
     }),
     handleShowActionSheet(e) {
-      this.isSheetVisible = true;
+      this.isMenuVisible = true;
+    },
+    handleGoHome() {
+      this.$router.push({ path: "/" });
     },
     handleBack() {
       this.$router.go(-1);
@@ -91,6 +102,9 @@ export default {
     handleCreate() {
       this.$router.push({ path: "/new" });
     }
+  },
+  mounted: function() {
+    window.document.title = this.appTitle;
   }
 };
 </script>
