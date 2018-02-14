@@ -2,8 +2,13 @@
   <div>
     <Header/>
     <div id="memos">
-      <MemoItem v-if="sortByTimeType" :memosData="ascByTimeMemo"></MemoItem>
-      <MemoItem v-if="!sortByTimeType" :memosData="descByTimeMemo"></MemoItem>
+      <MemoItem v-if="this.showType === 'all'" :memosData="this.allMemo"></MemoItem>
+      <MemoItem v-if="this.showType === 'completed'" :memosData="this.completedMemo"></MemoItem>
+      <MemoItem v-if="this.showType === 'incomplete'" :memosData="this.incompleteMemo"></MemoItem>
+      <MemoItem v-if="this.showType === 'star'" :memosData="this.starMemo"></MemoItem>
+      <MemoItem v-if="this.showType === '工作'" :memosData="this.work"></MemoItem>
+      <MemoItem v-if="this.showType === '学习'" :memosData="this.study"></MemoItem>
+      <MemoItem v-if="this.showType === '生活'" :memosData="this.life"></MemoItem>
     </div>
     <Tabbar @handleShow="handleShow" />
   </div>
@@ -27,7 +32,7 @@ export default {
   },
   data: function() {
     return {
-      currentData: this.$store.state.memos
+      showType: "all"
     };
   },
   computed: {
@@ -38,63 +43,103 @@ export default {
     }),
     allMemo: {
       get: function() {
-        return this.memos;
+        if (this.sortByTimeType) {
+          return this.ascByTimeMemo;
+        } else {
+          return this.descByTimeMemo;
+        }
       }
     },
     completedMemo: {
       get: function() {
-        return this.memos.filter(item => {
-          return item.completed === true;
-        });
+        if (this.sortByTimeType) {
+          return this.ascByTimeMemo.filter(item => {
+            return item.completed === true;
+          });
+        } else {
+          return this.descByTimeMemo.filter(item => {
+            return item.completed === true;
+          });
+        }
       }
     },
     incompleteMemo: {
       get: function() {
-        return this.memos.filter(item => {
-          return item.completed === false;
-        });
+        if (this.sortByTimeType) {
+          return this.ascByTimeMemo.filter(item => {
+            return item.completed === false;
+          });
+        } else {
+          return this.descByTimeMemo.filter(item => {
+            return item.completed === false;
+          });
+        }
       }
     },
     starMemo: {
       get: function() {
-        return this.memos.filter(item => {
-          return item.star === true;
-        });
+        if (this.sortByTimeType) {
+          return this.ascByTimeMemo.filter(item => {
+            return item.star === true;
+          });
+        } else {
+          return this.descByTimeMemo.filter(item => {
+            return item.star === true;
+          });
+        }
       }
     },
     // 类别
     work: {
       get: function() {
-        return this.memos.filter(item => {
-          return item.categoryId === 0;
-        });
+        if (this.sortByTimeType) {
+          return this.ascByTimeMemo.filter(item => {
+            return item.categoryId === 0;
+          });
+        } else {
+          return this.descByTimeMemo.filter(item => {
+            return item.categoryId === 0;
+          });
+        }
       }
     },
     study: {
       get: function() {
-        return this.memos.filter(item => {
-          return item.categoryId === 1;
-        });
+        if (this.sortByTimeType) {
+          return this.ascByTimeMemo.filter(item => {
+            return item.categoryId === 1;
+          });
+        } else {
+          return this.descByTimeMemo.filter(item => {
+            return item.categoryId === 1;
+          });
+        }
       }
     },
     life: {
       get: function() {
-        return this.memos.filter(item => {
-          return item.categoryId === 2;
-        });
+        if (this.sortByTimeType) {
+          return this.ascByTimeMemo.filter(item => {
+            return item.categoryId === 2;
+          });
+        } else {
+          return this.descByTimeMemo.filter(item => {
+            return item.categoryId === 2;
+          });
+        }
       }
     },
     // 排序
     ascByTimeMemo: {
       get: function() {
-        let arr = util.bubbleSort(this.currentData, "timestamp", "asc");
+        let arr = util.bubbleSort(this.memos, "timestamp", "asc");
         arr = arr.map(item => item);
         return arr;
       }
     },
     descByTimeMemo: {
       get: function() {
-        let arr = util.bubbleSort(this.currentData, "timestamp", "desc");
+        let arr = util.bubbleSort(this.memos, "timestamp", "desc");
         arr = arr.map(item => item);
         return arr;
       }
@@ -105,29 +150,7 @@ export default {
       add_memo: mutationType.ADD_MEMO
     }),
     handleShow(value) {
-      switch (value) {
-        case "all":
-          this.currentData = this.allMemo;
-          break;
-        case "completed":
-          this.currentData = this.completedMemo;
-          break;
-        case "incomplete":
-          this.currentData = this.incompleteMemo;
-          break;
-        case "star":
-          this.currentData = this.starMemo;
-          break;
-        case "工作":
-          this.currentData = this.work;
-          break;
-        case "学习":
-          this.currentData = this.study;
-          break;
-        case "生活":
-          this.currentData = this.life;
-          break;
-      }
+      this.showType = value;
     }
   }
 };
