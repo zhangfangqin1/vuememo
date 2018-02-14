@@ -107,14 +107,7 @@ export default {
 .content {
   height: 100%;
   text-indent: 0.8125rem;
-  margin-bottom: 3.125rem;
-}
-.button-group {
-  background: #fff;
-  opacity: 0.9;
-  bottom: 0;
-  position: fixed;
-  width: 100%;
+  margin-bottom: 1.25rem;
 }
 .button-group button {
   margin-bottom: 0.0625rem;

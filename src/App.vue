@@ -89,7 +89,7 @@ h6 {
 /* button-group */
 .button-group {
   bottom: 0;
-  position: fixed;
+  position: relative;
   width: 100%;
   background: #fff;
   opacity: 0.9;
