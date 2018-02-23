@@ -6,20 +6,11 @@ import store from './store'
 // mintui
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
-// fontawesome
-import fontawesome from '@fortawesome/fontawesome'
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import solid from '@fortawesome/fontawesome-free-solid'
-import regular from '@fortawesome/fontawesome-free-regular'
 // lib-flexible
 import 'amfe-flexible'
 
-fontawesome.library.add(solid);
-fontawesome.library.add(regular);
-
 Vue.config.productionTip = true;
 Vue.use(MintUI)
-Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 new Vue({
   el: '#app',

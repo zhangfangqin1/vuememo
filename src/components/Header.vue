@@ -2,10 +2,10 @@
   <div>
     <mt-header class="header" :title="appTitle" @click="handleGoHome">
       <mt-button v-if="currentComponentName !== 'Index'" @click="handleBack" slot="left">
-        <font-awesome-icon :icon="['fas','chevron-left']" />
+        <font-awesome-icon :icon="iconChevronLeft" />
       </mt-button>
       <mt-button v-if="currentComponentName === 'Index'" @click="handleShowActionSheet" slot="right">
-        <font-awesome-icon :icon="['fas','bars']" />
+        <font-awesome-icon :icon="iconBars" />
       </mt-button>
     </mt-header>
     <mt-actionsheet :actions="menu" v-model="isMenuVisible"></mt-actionsheet>
@@ -20,8 +20,16 @@ import { Toast } from "mint-ui";
 import mutationType from "../store/mutation";
 import actionType from "../store/action";
 
+// icon
+import FontAwesomeIcon from "@fortawesome/vue-fontawesome";
+import bars from "@fortawesome/fontawesome-free-solid/faBars";
+import chevronLeft from "@fortawesome/fontawesome-free-solid/faChevronLeft";
+
 export default {
   name: "Header",
+  components: {
+    FontAwesomeIcon
+  },
   data: function() {
     return {
       isMenuVisible: false,
@@ -73,6 +81,12 @@ export default {
     };
   },
   computed: {
+    iconBars() {
+      return bars;
+    },
+    iconChevronLeft() {
+      return chevronLeft;
+    },
     appTitle: {
       get: function() {
         return "VUEMEMO";

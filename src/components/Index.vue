@@ -20,9 +20,11 @@ import { mapMutations } from "Vuex";
 import { mapActions } from "Vuex";
 import mutationType from "../store/mutation";
 import actionType from "../store/action";
+
 import Header from "@/components/Header";
 import Tabbar from "@/components/Tabbar";
 import MemoItem from "@/components/MemoItem";
+
 import util from "../utils";
 
 export default {

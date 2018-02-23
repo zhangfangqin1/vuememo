@@ -4,8 +4,8 @@
       <!-- 标记是否完成 -->
       <span @click="handleComplete(item)">
         <transition name="scale-fade" mode="out-in">
-          <font-awesome-icon class="check" v-if="item.completed === true" key="checked" :icon="['far','check-circle']" />
-          <font-awesome-icon class="not-check" v-if="item.completed === false" key="notChecked" :icon="['far','circle']" />
+          <font-awesome-icon class="check" v-if="item.completed === true" key="checked" :icon="iconCheckCircle" />
+          <font-awesome-icon class="not-check" v-if="item.completed === false" key="notChecked" :icon="iconCircle" />
         </transition>
       </span>
       <!--  -->
@@ -20,15 +20,15 @@
           <!-- 日期、分类、收藏 -->
           <div class="tag">
             <span class="tag-message">
-              <font-awesome-icon style="color:black;opacity:0.4;" :icon="['fas','calendar-alt']" />
+              <font-awesome-icon style="color:black;opacity:0.4;" :icon="iconCalendarAlt" />
               <span>{{new Date(item.timestamp).toLocaleTimeString()}}</span>
             </span>
             <span class="tag-message">
-              <font-awesome-icon style="color:red;opacity:0.4;" :icon="['fas','bookmark']" />
+              <font-awesome-icon style="color:red;opacity:0.4;" :icon="iconBookmark" />
               <span>{{memoType[item.categoryId]}}</span>
             </span>
             <span class="tag-message">
-              <font-awesome-icon v-if="item.star" style="color:gold;opacity:0.4;" :icon="['fas','star']" />
+              <font-awesome-icon v-if="item.star" style="color:gold;opacity:0.4;" :icon="iconStar" />
             </span>
           </div>
           <!--  -->
@@ -49,14 +49,39 @@ import { mapState, mapActions } from "Vuex";
 import actionType from "../store/action";
 import { Toast } from "mint-ui";
 
+import FontAwesomeIcon from "@fortawesome/vue-fontawesome";
+import iconCheckCircle from "@fortawesome/fontawesome-free-regular/faCheckCircle";
+import iconCircle from "@fortawesome/fontawesome-free-regular/faCircle";
+import iconCalendarAlt from "@fortawesome/fontawesome-free-solid/faCalendarAlt";
+import iconBookmark from "@fortawesome/fontawesome-free-solid/faBookmark";
+import iconStar from "@fortawesome/fontawesome-free-solid/faStar";
+
 export default {
   name: "MemoItem",
   props: ["memosData"],
+  components: {
+    FontAwesomeIcon
+  },
   computed: {
     ...mapState({
       displayType: "displayType",
       memoType: "type"
-    })
+    }),
+    iconCheckCircle: function() {
+      return iconCheckCircle;
+    },
+    iconCircle: function() {
+      return iconCircle;
+    },
+    iconCalendarAlt: function() {
+      return iconCalendarAlt;
+    },
+    iconBookmark: function() {
+      return iconBookmark;
+    },
+    iconStar: function() {
+      return iconStar;
+    }
   },
   methods: {
     ...mapActions({

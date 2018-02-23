@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/components/Index'
-import NewMemo from '@/components/NewMemo'
-import ShowMemo from '@/components/ShowMemo'
-import ModifyMemo from '@/components/ModifyMemo'
+const Index = () => import('@/components/Index')
+const NewMemo = () => import('@/components/NewMemo')
+const ShowMemo = () => import('@/components/ShowMemo')
+const ModifyMemo = () => import('@/components/ModifyMemo')
 
 Vue.use(Router)
 
