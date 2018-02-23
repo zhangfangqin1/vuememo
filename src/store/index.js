@@ -6,6 +6,7 @@ Vue.use(Vuex);
 import mutationType from "./mutation";
 import actionType from "./action";
 import mutation from './mutation';
+import util from "../utils";
 
 const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
@@ -87,11 +88,22 @@ const store = new Vuex.Store({
         commit(mutationType.DROP_MEMO);
         response();
       });
+    },
+    [actionType.SYNC_MEMO]({
+      commit
+    }) {
+      return new Promise((response, reject) => {
+        commit(mutationType.SYNC_MEMO);
+        response();
+      });
     }
   },
   mutations: {
     [mutationType.ADD_MEMO](state, value) {
       state.memos.unshift(value);
+      let currentLocalStorage = util.localStorage.getItem('memos');
+      currentLocalStorage.unshift(value);
+      util.localStorage.setItem('memos', currentLocalStorage);
     },
     [mutationType.MODIFY_MEMO](state, value) {
       let uid = value.uid;
@@ -103,9 +115,12 @@ const store = new Vuex.Store({
           elem.timestamp = value.timestamp;
         }
       });
+      // 为了方便，直接同步了全部信息，考虑到性能不可这样写
+      util.localStorage.setItem('memos', state.memos);
     },
     [mutationType.DROP_MEMO](state) {
       state.memos.splice(0, state.memos.length);
+      util.localStorage.setItem('memos', []);
     },
     [mutationType.CHECK_MEMO](state, uid) {
       state.memos.forEach((elem, index) => {
@@ -113,6 +128,7 @@ const store = new Vuex.Store({
           elem.completed = !elem.completed;
         }
       });
+      util.localStorage.setItem('memos', state.memos);
     },
     [mutationType.STAR_MEMO](state, uid) {
       state.memos.forEach((elem, index) => {
@@ -120,6 +136,7 @@ const store = new Vuex.Store({
           elem.star = !elem.star;
         }
       });
+      util.localStorage.setItem('memos', state.memos);
     },
     [mutationType.DELETE_MEMO](state, uid) {
       state.memos.forEach((elem, index) => {
@@ -127,6 +144,10 @@ const store = new Vuex.Store({
           state.memos.splice(index, 1);
         }
       });
+      util.localStorage.setItem('memos', state.memos);
+    },
+    [mutationType.SYNC_MEMO](state) {
+      state.memos = util.localStorage.getItem('memos');
     },
     [mutationType.SWITCH_DISPLAY](state) {
       this.state.displayType = !this.state.displayType;

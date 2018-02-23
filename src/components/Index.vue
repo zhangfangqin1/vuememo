@@ -152,6 +152,9 @@ export default {
     handleShow(value) {
       this.showType = value;
     }
+  },
+  mounted() {
+    console.log("done");
   }
 };
 </script>

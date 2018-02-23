@@ -4,7 +4,10 @@
       <mt-button v-if="currentComponentName !== 'Index'" @click="handleBack" slot="left">
         <font-awesome-icon :icon="['fas','chevron-left']" />
       </mt-button>
-      <mt-button v-else-if="currentComponentName === 'Index'" @click="handleShowActionSheet" slot="right">
+      <mt-button v-if="currentComponentName === 'Index'" @click="handleSync" slot="left">
+        <font-awesome-icon :icon="['fas','sync']" />
+      </mt-button>
+      <mt-button v-if="currentComponentName === 'Index'" @click="handleShowActionSheet" slot="right">
         <font-awesome-icon :icon="['fas','bars']" />
       </mt-button>
     </mt-header>
@@ -88,8 +91,12 @@ export default {
       switch_by_time: mutationType.SWITCH_BY_TIME
     }),
     ...mapActions({
-      drop_memo: actionType.DROP_MEMO
+      drop_memo: actionType.DROP_MEMO,
+      sync_memo: actionType.SYNC_MEMO
     }),
+    handleSync(e) {
+      this.sync_memo();
+    },
     handleShowActionSheet(e) {
       this.isMenuVisible = true;
     },
@@ -114,5 +121,6 @@ export default {
   background: #fff;
   color: #26a2ff;
   border-bottom: 0.0625rem solid #eee; /* 1/16 */
+  overflow: hidden;
 }
 </style>

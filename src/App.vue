@@ -41,6 +41,11 @@ h5,
 h6 {
   color: #2c3e50;
 }
+
+/* 隐藏滚动条 */
+::-webkit-scrollbar {
+  width: 0;
+}
 /* 过渡动画 */
 .component-fade-enter-active {
   transition: opacity 0.3s ease;

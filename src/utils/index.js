@@ -24,5 +24,23 @@ export default {
       }
     }
     return arr;
+  },
+  localStorage: {
+    /**
+     * @description 读取对应 key 的 parsed arr 数组
+     * @param {String} key
+     * @returns {Array}
+     */
+    getItem: function (key) {
+      return JSON.parse(window.localStorage.getItem(key))
+    },
+    /**
+     * @description 写入对应 key 的 stringified arr 字符串
+     * @param {String} key
+     * @param {Array} arr
+     */
+    setItem: function (key, arr) {
+      window.localStorage.setItem(key, JSON.stringify(arr));
+    },
   }
 }
