@@ -4,9 +4,6 @@
       <mt-button v-if="currentComponentName !== 'Index'" @click="handleBack" slot="left">
         <font-awesome-icon :icon="['fas','chevron-left']" />
       </mt-button>
-      <mt-button v-if="currentComponentName === 'Index'" @click="handleSync" slot="left">
-        <font-awesome-icon :icon="['fas','sync']" />
-      </mt-button>
       <mt-button v-if="currentComponentName === 'Index'" @click="handleShowActionSheet" slot="right">
         <font-awesome-icon :icon="['fas','bars']" />
       </mt-button>

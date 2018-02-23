@@ -15,6 +15,14 @@ const store = new Vuex.Store({
     displayType: true,
     sortByTimeType: true,
     memos: [{
+      uid: '4053377u49mkbs',
+      categoryId: 0,
+      title: '谢谢关注 VUEMEMO DEMO',
+      content: '项目只用于测试，此项目托管于 GITHUB （http://github.com/oliyg/vuememo），欢迎 star，基于 Vue.js 的简单记事本 SPA ，Mint-UI、Vue、VueRouter、Vuex，使用localStorage作为数据本地持久化，并支持使用Markdown格式笔记，主要功能有增查改删笔记、按条件过滤和排序笔记、并支持文字和图片等形式的笔记',
+      completed: true,
+      star: true,
+      timestamp: 1518021987038
+    }, {
       uid: '4053377u49mkby',
       categoryId: 0,
       title: '原创时政微视频丨习近平寄语冰雪运动',
@@ -147,7 +155,9 @@ const store = new Vuex.Store({
       util.localStorage.setItem('memos', state.memos);
     },
     [mutationType.SYNC_MEMO](state) {
-      state.memos = util.localStorage.getItem('memos');
+      if (util.localStorage.getItem('memos').length) {
+        state.memos = util.localStorage.getItem('memos');
+      }
     },
     [mutationType.SWITCH_DISPLAY](state) {
       this.state.displayType = !this.state.displayType;

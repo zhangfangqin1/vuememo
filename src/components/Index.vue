@@ -17,7 +17,9 @@
 <script>
 import { mapState } from "Vuex";
 import { mapMutations } from "Vuex";
+import { mapActions } from "Vuex";
 import mutationType from "../store/mutation";
+import actionType from "../store/action";
 import Header from "@/components/Header";
 import Tabbar from "@/components/Tabbar";
 import MemoItem from "@/components/MemoItem";
@@ -146,6 +148,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      sync_memo: actionType.SYNC_MEMO
+    }),
     ...mapMutations({
       add_memo: mutationType.ADD_MEMO
     }),
@@ -153,8 +158,10 @@ export default {
       this.showType = value;
     }
   },
-  mounted() {
-    console.log("done");
+  beforeMount() {
+    if (JSON.parse(window.localStorage.memos).length) {
+      this.sync_memo();
+    }
   }
 };
 </script>

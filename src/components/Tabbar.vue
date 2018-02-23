@@ -4,21 +4,27 @@
     <mt-tabbar fixed v-model="selected">
       <mt-tab-item @click.native="handleShow('all')" id="全部">
         <font-awesome-icon class="icon" :icon="['far','list-alt']" />
+        <div class="tabbar-tag">全部</div>        
       </mt-tab-item>
       <mt-tab-item @click.native="handleShow('completed')" id="已完成">
         <font-awesome-icon class="icon" :icon="['far','check-circle']" />
+        <div class="tabbar-tag">已完成</div>        
       </mt-tab-item>
       <mt-tab-item @click.native="handleShow('incomplete')" id="未完成">
         <font-awesome-icon class="icon" :icon="['far','circle']" />
+        <div class="tabbar-tag">未完成</div>
       </mt-tab-item>
       <mt-tab-item @click.native="handleShowPopup" id="类别">
         <font-awesome-icon class="icon" :icon="['far','bookmark']" />
+        <div class="tabbar-tag">类别</div>
       </mt-tab-item>
       <mt-tab-item @click.native="handleShow('star')" id="收藏">
         <font-awesome-icon class="icon" :icon="['far','star']" />
+        <div class="tabbar-tag">收藏</div>
       </mt-tab-item>
       <mt-tab-item @click.native="handleCreate" id="创建">
         <font-awesome-icon class="icon" :icon="['far','edit']" />
+        <div class="tabbar-tag">创建</div>
       </mt-tab-item>
     </mt-tabbar>
     <!-- 菜单 -->
@@ -59,6 +65,11 @@ export default {
 .container {
   width: 100%;
   height: auto;
+}
+
+.tabbar-tag {
+  margin-top: 4px;
+  font-size: 12px;
 }
 
 svg {
