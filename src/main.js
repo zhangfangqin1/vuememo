@@ -19,5 +19,7 @@ new Vue({
   components: {
     App
   },
-  template: '<App/>'
+  render: function (c) {
+    return c('App');
+  }
 })
