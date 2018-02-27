@@ -1,7 +1,12 @@
 <template>
   <div>
     <Header/>
-    <div class="container">
+    <div v-if="memoItem.ifMarkdown" class="container">
+      <h3 class="title">{{memoItem.title}}</h3>
+      <p class="timestamp">{{new Date(memoItem.timestamp).toLocaleTimeString()}}</p>
+      <div v-html="md(memoItem.content)" class="content md"></div>
+    </div>
+    <div v-else class="container">
       <h3 class="title">{{memoItem.title}}</h3>
       <p class="timestamp">{{new Date(memoItem.timestamp).toLocaleTimeString()}}</p>
       <p class="content">{{memoItem.content}}</p>
@@ -42,6 +47,12 @@ export default {
       delete_memo: "DELETE_MEMO",
       star_memo: "STAR_MEMO"
     }),
+    md: function(doc) {
+      let MarkdownIt = require('markdown-it');
+      let md = new MarkdownIt();
+      let result = md.render(doc)
+      return result
+    },
     handleStar() {
       let uid = this.$route.params.id;
       this.star_memo(uid)

@@ -10,10 +10,13 @@
       <Header/>
       <mt-radio title="笔记类型" v-model="memo_category_id" :options="this.$store.state.type">
       </mt-radio>
+      <mt-switch v-model="ifMarkdown" @change.native="handleMarkdownSwitch">
+        {{ this.ifMarkdown === true ? '采用': '不采用' }} markdown 模式
+      </mt-switch>
       <mt-field label="标题" placeholder="请输入标题" v-model="memo_title"></mt-field>
       <mt-field label="内容" placeholder="文本内容" type="textarea" rows="12" v-model="memo_content"></mt-field>
       <div class="button-group">
-        <mt-button plain size="large" class="new-memo" @click.native="handlePreviewBtn" type="default">预览</mt-button>
+        <mt-button v-if="ifShowPreviewBtn" plain size="large" class="new-memo" @click.native="handlePreviewBtn" type="default">Markdown 预览</mt-button>
         <mt-button plain size="large" class="new-memo" @click.native="handleSubmitBtn" type="primary">确认提交</mt-button>
       </div>
     </div>
@@ -42,7 +45,9 @@ export default {
       memo_content: "",
       titleInputer: null,
       contentInputer: null,
-      ifShowPreview: false
+      ifShowPreview: false,
+      ifShowPreviewBtn: false,
+      ifMarkdown: false
     };
   },
   computed: {
@@ -54,6 +59,13 @@ export default {
     ...mapActions({
       add_memo: actionType.ADD_MEMO
     }),
+    handleMarkdownSwitch(e){
+      if (this.ifMarkdown) {
+        this.ifShowPreviewBtn = true;
+      } else {
+        this.ifShowPreviewBtn = false;
+      }
+    },
     handlePreviewBtn(e) {
       this.ifShowPreview = true
     },
@@ -74,6 +86,7 @@ export default {
         title: this.memo_title,
         content: this.memo_content,
         completed: false,
+        ifMarkdown: this.ifMarkdown,
         timestamp: Date.now()
       })
         .then(() => {

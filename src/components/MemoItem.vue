@@ -27,6 +27,9 @@
               <font-awesome-icon style="color:red;opacity:0.4;" :icon="iconBookmark" />
               <span>{{memoType[item.categoryId]}}</span>
             </span>
+            <span v-if="item.ifMarkdown" class="tag-message">
+              <span style="color:#999;">MD</span>
+            </span>
             <span class="tag-message">
               <font-awesome-icon v-if="item.star" style="color:gold;opacity:0.4;" :icon="iconStar" />
             </span>

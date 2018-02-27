@@ -31,7 +31,7 @@ header {
   -webkit-font-smoothing: antialiased;
   color: #34495e;
   overflow-x: hidden;
-  font-size: 16px;
+  font-size: 14px;
 }
 h1,
 h2,
@@ -98,5 +98,133 @@ h6 {
   width: 100%;
   background: #fff;
   opacity: 0.9;
+}
+
+/* hr */
+.md hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #eee;
+}
+/* important */
+.md b,
+strong {
+  font-weight: bold;
+}
+/* a and p */
+.md p {
+  margin-bottom: 20px;
+  font-size: 14px;
+  word-break: break-all;
+}
+.md a {
+  color: #428bca;
+  text-decoration: none;
+}
+/* pre and code */
+.md code {
+  overflow: scroll;
+  word-break: break-all;
+}
+.md li > code {
+  color: #c7254e;
+  background: #f9f2f4;
+  border-radius: 3px;
+}
+.md p > code {
+  color: #c7254e;
+  background: #f9f2f4;
+  border-radius: 3px;
+}
+.md pre {
+  text-indent: 0;
+}
+.md > pre > code {
+  margin: 0;
+  padding: 0;
+}
+.md > pre {
+  margin: 0;
+  padding: 0;
+  max-height: 3.25rem;
+  overflow: scroll;
+  background-color: #fafafa;
+  text-align: left;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+}
+.md blockquote {
+  border-left: 2px solid #ccc;
+  padding: 10px 10px;
+  margin: 0;
+  font-size: 17.5px;
+}
+.md blockquote p {
+  overflow: scroll;
+  text-align: left;
+  text-indent: 0;
+  margin-bottom: 0;
+}
+/* list */
+.md > ul,
+ol > li {
+  text-indent: 0;
+}
+/* title */
+.md > h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 10px;
+}
+.md > h1 {
+  font-size: 18px;
+}
+.md > h2 {
+  font-size: 16px;
+}
+.md > h3 {
+  font-size: 14px;
+}
+.md > h4 {
+  font-size: 12px;
+}
+.md > h5 {
+  font-size: 12px;
+}
+.md > h6 {
+  font-size: 12px;
+}
+/* table */
+.md table {
+  display: table;
+}
+.md thead {
+  display: table-header-group;
+  vertical-align: middle;
+}
+.md tr {
+  display: table-row;
+}
+.md th {
+  text-align: left;
+}
+.md tbody {
+  display: table-row-group;
+}
+.md td {
+  vertical-align: top;
+  text-indent: 0;
+}
+.md tbody tr:nth-child(odd) > td {
+  background-color: #f9f9f9;
+}
+/* img */
+.md img {
+  vertical-align: middle;
+  max-width: 35%;
 }
 </style>
