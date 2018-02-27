@@ -23,6 +23,7 @@
 import { mapState, mapActions } from "Vuex";
 import { Toast } from "mint-ui";
 import { MessageBox } from "mint-ui";
+import actionType from "../store/action";
 
 import Header from "@/components/Header";
 
@@ -42,10 +43,16 @@ export default {
       });
     }
   },
+  beforeMount: function() {
+    if (JSON.parse(window.localStorage.memos).length) {
+      this.sync_memo();
+    }
+  },
   methods: {
     ...mapActions({
-      delete_memo: "DELETE_MEMO",
-      star_memo: "STAR_MEMO"
+      delete_memo: actionType.DELETE_MEMO,
+      star_memo: actionType.STAR_MEMO,
+      sync_memo: actionType.SYNC_MEMO
     }),
     md: function(doc) {
       let MarkdownIt = require('markdown-it');
