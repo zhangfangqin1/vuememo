@@ -15,6 +15,7 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.6",
     "@fortawesome/vue-fontawesome": "^0.0.22",
     "amfe-flexible": "^2.2.1",
+    "markdown-it": "^8.4.1",
     "mint-ui": "^2.2.13",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
