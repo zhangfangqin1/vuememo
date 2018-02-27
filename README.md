@@ -36,10 +36,10 @@ npm run build
   - ✔️收藏、取消收藏和显示收藏笔记
   - ✔️通过localStorage对象的数据本地持久化
 - v3
-  - 支持Markdown格式
-  - 实时保存笔记
+  - ✔️支持Markdown格式
   - 通过base64支持保存图片
   - 通过Canvas支持绘图
+  - 实时保存笔记
 
 ## MESSAGE ME
 
