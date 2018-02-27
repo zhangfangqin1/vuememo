@@ -8,6 +8,8 @@
 
 源代码：[github](https://github.com/oliyg/vuememo)
 
+---
+
 ## 🚨 BUILD SETUP
 
 ``` bash
@@ -45,7 +47,7 @@ npm run build
   - 通过Canvas支持绘图
   - 实时保存笔记
 
-## 文件目录
+## 📦 文件目录
 
 ```
 ├── App.vue
@@ -68,11 +70,11 @@ npm run build
 |  └── mutation.js
 └── utils // 全局共用方法
    └── index.js
-
-directory: 5 file: 15
 ```
 
-## MESSAGE ME
+---
+
+## 🍎 MESSAGE ME
 
 - [github](http://github.com/oliyg)
 - [blog](http://alljs.cc)
