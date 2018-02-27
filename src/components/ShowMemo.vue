@@ -12,9 +12,9 @@
       <p class="content">{{memoItem.content}}</p>
     </div>
     <div class="button-group">
-      <mt-button @click.native="handleModify" type="primary" plain size="large">修改</mt-button>
-      <mt-button plain size="large" class="new-memo" @click.native="handleStar" type="default">{{ memoItem.star ? '取消收藏' : '收藏' }}</mt-button>
-      <mt-button @click.native="handleDelete" type="danger" plain size="large">删除</mt-button>
+      <mt-button @click.native="handleModify" type="primary" plain size="small">修改</mt-button>
+      <mt-button plain size="small" class="new-memo" @click.native="handleStar" type="default">{{ memoItem.star ? '取消收藏' : '收藏' }}</mt-button>
+      <mt-button @click.native="handleDelete" type="danger" plain size="small">删除</mt-button>
     </div>
   </div>
 </template>
@@ -129,5 +129,8 @@ export default {
 }
 .button-group button {
   margin-bottom: 0.0625rem;
+}
+.button-group {
+  text-align: center;
 }
 </style>
