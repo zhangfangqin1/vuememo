@@ -37,9 +37,40 @@ npm run build
   - ✔️通过localStorage对象的数据本地持久化
 - v3
   - ✔️支持Markdown格式
+  - 以图片的形式分享笔记
+  - 定时推送提醒通知
+  - 导出笔记至 PDF/CSV/JSON/MD 等文件格式
+- v4
   - 通过base64支持保存图片
   - 通过Canvas支持绘图
   - 实时保存笔记
+
+## 文件目录
+
+```
+├── App.vue
+├── assets // 静态资源
+├── components // 组件
+|  ├── Header.vue // 导航栏
+|  ├── Index.vue // 主页
+|  ├── MemoItem.vue // 笔记文档
+|  ├── ModifyMemo.vue // 修改笔记界面
+|  ├── NewMemo.vue // 新建笔记界面
+|  ├── Preview.vue // 预览 MD 笔记
+|  ├── ShowMemo.vue // 查看笔记界面
+|  └── Tabbar.vue // tabbar栏
+├── main.js
+├── router // 路由
+|  └── index.js
+├── store // 全局 store 管理
+|  ├── action.js
+|  ├── index.js
+|  └── mutation.js
+└── utils // 全局共用方法
+   └── index.js
+
+directory: 5 file: 15
+```
 
 ## MESSAGE ME
 
