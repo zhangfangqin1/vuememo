@@ -19,6 +19,7 @@ import { Toast } from "mint-ui";
 
 import mutationType from "../store/mutation";
 import actionType from "../store/action";
+import util from '../utils/index';
 
 // icon
 import FontAwesomeIcon from "@fortawesome/vue-fontawesome";
@@ -75,6 +76,13 @@ export default {
           name: "按时间排序⇩⇧",
           method: () => {
             this.switch_by_time();
+          }
+        },
+        {
+          name: "重置数据",
+          method: () => {
+            window.localStorage.removeItem('memos');
+            window.location.reload();
           }
         }
       ]
