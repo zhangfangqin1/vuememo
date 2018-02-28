@@ -8,6 +8,9 @@ import actionType from "./action";
 import mutation from './mutation';
 import util from "../utils";
 
+// getters
+import getters from '../store/getters'
+
 const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
@@ -16,6 +19,7 @@ const store = new Vuex.Store({
     sortByTimeType: true,
     memos: []
   },
+  getters,
   actions: {
     [actionType.CHECK_MEMO]({
       commit

@@ -42,112 +42,30 @@ export default {
   computed: {
     ...mapState({
       msg: "msg",
-      memos: "memos",
       sortByTimeType: "sortByTimeType"
     }),
-    allMemo: {
-      get: function() {
-        if (this.sortByTimeType) {
-          return this.ascByTimeMemo;
-        } else {
-          return this.descByTimeMemo;
-        }
-      }
+    allMemo: function() {
+      return this.$store.getters.allMemos(this.sortByTimeType);
     },
-    completedMemo: {
-      get: function() {
-        if (this.sortByTimeType) {
-          return this.ascByTimeMemo.filter(item => {
-            return item.completed === true;
-          });
-        } else {
-          return this.descByTimeMemo.filter(item => {
-            return item.completed === true;
-          });
-        }
-      }
+    completedMemo: function() {
+      return this.$store.getters.completedMemos(this.sortByTimeType);
     },
-    incompleteMemo: {
-      get: function() {
-        if (this.sortByTimeType) {
-          return this.ascByTimeMemo.filter(item => {
-            return item.completed === false;
-          });
-        } else {
-          return this.descByTimeMemo.filter(item => {
-            return item.completed === false;
-          });
-        }
-      }
+    incompleteMemo: function() {
+      return this.$store.getters.incompleteMemos(this.sortByTimeType);
     },
-    starMemo: {
-      get: function() {
-        if (this.sortByTimeType) {
-          return this.ascByTimeMemo.filter(item => {
-            return item.star === true;
-          });
-        } else {
-          return this.descByTimeMemo.filter(item => {
-            return item.star === true;
-          });
-        }
-      }
+    starMemo: function() {
+      return this.$store.getters.starMemos(this.sortByTimeType);
     },
     // 类别
-    work: {
-      get: function() {
-        if (this.sortByTimeType) {
-          return this.ascByTimeMemo.filter(item => {
-            return item.categoryId === 0;
-          });
-        } else {
-          return this.descByTimeMemo.filter(item => {
-            return item.categoryId === 0;
-          });
-        }
-      }
+    work: function() {
+      return this.$store.getters.work(this.sortByTimeType);
     },
-    study: {
-      get: function() {
-        if (this.sortByTimeType) {
-          return this.ascByTimeMemo.filter(item => {
-            return item.categoryId === 1;
-          });
-        } else {
-          return this.descByTimeMemo.filter(item => {
-            return item.categoryId === 1;
-          });
-        }
-      }
+    study: function() {
+      return this.$store.getters.study(this.sortByTimeType);
     },
-    life: {
-      get: function() {
-        if (this.sortByTimeType) {
-          return this.ascByTimeMemo.filter(item => {
-            return item.categoryId === 2;
-          });
-        } else {
-          return this.descByTimeMemo.filter(item => {
-            return item.categoryId === 2;
-          });
-        }
-      }
+    life: function() {
+      return this.$store.getters.life(this.sortByTimeType);
     },
-    // 排序
-    ascByTimeMemo: {
-      get: function() {
-        let arr = util.bubbleSort(this.memos, "timestamp", "asc");
-        arr = arr.map(item => item);
-        return arr;
-      }
-    },
-    descByTimeMemo: {
-      get: function() {
-        let arr = util.bubbleSort(this.memos, "timestamp", "desc");
-        arr = arr.map(item => item);
-        return arr;
-      }
-    }
   },
   methods: {
     ...mapActions({
@@ -200,6 +118,7 @@ export default {
       star: false,
       timestamp: 1518020887038
     }];
+    
       util.localStorage.setItem('memos', testData);
       testData = null;
       this.sync_memo();
