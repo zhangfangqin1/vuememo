@@ -1,6 +1,10 @@
 <template>
   <div>
     <Header/>
+    <mt-actionsheet
+      :actions="shareActions"
+      v-model="isShareActionsVisible">
+    </mt-actionsheet>
     <div v-if="memoItem.ifMarkdown" class="container">
       <h3 class="title">{{memoItem.title}}</h3>
       <p class="timestamp">{{new Date(memoItem.timestamp).toLocaleTimeString()}}</p>
@@ -12,9 +16,10 @@
       <p class="content">{{memoItem.content}}</p>
     </div>
     <div class="button-group">
-      <mt-button @click.native="handleModify" type="primary" plain size="small">修改</mt-button>
-      <mt-button plain size="small" class="new-memo" @click.native="handleStar" type="default">{{ memoItem.star ? '取消收藏' : '收藏' }}</mt-button>
-      <mt-button @click.native="handleDelete" type="danger" plain size="small">删除</mt-button>
+      <mt-button @click.native="handleModify" type="primary" plain size="large">修改</mt-button>
+      <mt-button plain size="large" class="new-memo" @click.native="handleStar" type="default">{{ memoItem.star ? '取消收藏' : '收藏' }}</mt-button>
+      <mt-button @click.native="handleShare" type="default" plain size="large">保存或分享</mt-button>
+      <mt-button @click.native="handleDelete" type="danger"  size="large">删除</mt-button>
     </div>
   </div>
 </template>
@@ -32,10 +37,41 @@ export default {
   components: {
     Header
   },
+  data: function() {
+    return {
+        isShareActionsVisible: false
+    }
+  },
   computed: {
     ...mapState({
       memos: "memos"
     }),
+    shareActions(){
+      return [{
+          name: "保存截图",
+          method: () => {
+            this.isShareActionsVisible = !this.isShareActionsVisible;
+            let hc = require('html2canvas');
+            hc(document.querySelector('div.container')).then(canvas => {
+              let dataUrl = canvas.toDataURL('image/png');
+              let link = document.createElement('a');
+              link.href = dataUrl;
+              link.download = `memo-${this.memoItem.title}-${Date.now()}`
+              link.click();
+            })
+          }
+      },{
+        name: "复制内容到剪贴板",
+        method: () => {
+          document.oncopy = (e) => {
+            e.clipboardData.setData('text/plain', this.memoItem.content);
+            e.preventDefault();
+            console.log('复制完成');
+          }
+          document.execCommand('copy');
+        }
+      }]
+    },
     memoItem: function() {
       let uid = this.$route.params.id;
       return this.memos.find((item, index) => {
@@ -78,6 +114,9 @@ export default {
     handleModify() {
       let uid = this.$route.params.id;
       this.$router.push({ path: `/modify/${uid}` });
+    },
+    handleShare(){
+      this.isShareActionsVisible = !this.isShareActionsVisible;
     },
     handleDelete() {
       let uid = this.$route.params.id;
