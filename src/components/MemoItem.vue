@@ -44,6 +44,7 @@
       </transition>
       <!--  -->
     </div>
+    <div class="eof">EOF</div>
   </div>
 </template>
 
@@ -118,9 +119,6 @@ export default {
   border-bottom: 0.0625rem solid #eee;
 }
 
-.memos:last-of-type {
-  margin-bottom: 7.5rem;
-}
 .tag {
   color: #999;
   font-size: 13px;
@@ -141,5 +139,12 @@ export default {
 .not-check {
   color: #888;
   font-size: 18px;
+}
+
+.eof {
+  margin-bottom: 7.5rem;
+  width: 100%;
+  text-align: center;
+  color: #ccc;
 }
 </style>

@@ -1,4 +1,20 @@
 export default {
+  /** 
+   * @description 需要使用 Blob 浏览器兼容性：Blob URLs ✔ 94.48%
+  IE ✘ 5.5+ ✔ 10+ Edge ✔ ¹ Firefox ✘ 2+ ✔ 4+ Chrome ✘ 4+ ✔ 8+ᵖ ✔ 23+ Safari
+  ✘ 3.1+ ✔ 6+ᵖ ✔ 6.1+ Opera ✘ 9+ ✔ 15+
+  */
+  downloadJSONFile(){
+    console.log(`需要使用 Blob 浏览器兼容性：Blob URLs ✔ 94.48%
+IE ✘ 5.5+ ✔ 10+ Edge ✔ ¹ Firefox ✘ 2+ ✔ 4+ Chrome ✘ 4+ ✔ 8+ᵖ ✔ 23+ Safari
+✘ 3.1+ ✔ 6+ᵖ ✔ 6.1+ Opera ✘ 9+ ✔ 15+`);
+    let blob = new Blob([JSON.stringify(this.localStorage.getItem('memos'))], {type: "application/json"});
+    var url = URL.createObjectURL(blob);
+    let a = document.createElement('a')
+    a.href = url;
+    a.download = 'allData.json';
+    a.click();
+  },
   /**
    * @description 创建uid
    * @returns {String}

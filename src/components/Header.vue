@@ -91,6 +91,12 @@ export default {
             window.localStorage.removeItem('memos');
             window.location.reload();
           }
+        },
+        {
+          name: "导出全部数据",
+          method: () => {
+            util.downloadJSONFile();
+          }
         }
       ]
     };

@@ -1,6 +1,8 @@
 # 💯 VUEMEMO
 
-> 基于 Vue.js 的简单记事本 SPA ，Mint-UI、Vue、VueRouter、Vuex，使用localStorage作为数据本地持久化，并支持使用Markdown格式笔记，主要功能有增查改删笔记、按条件过滤和排序笔记、并支持文字和图片等形式的笔记
+> 基于 Vue.js 的简单记事本 SPA 。Mint-UI、Vue、VueRouter、Vuex，使用localStorage作为数据本地持久化，并支持使用Markdown格式笔记，主要功能有增查改删笔记、按条件过滤和排序笔记、并支持文字和图片等形式的笔记.
+
+> Vue.js-based simple notepad SPA. Mint-UI, Vue, VueRouter, Vuex, the use of localStorage as local database(storage), and support the Markdown formatting language, the main features are increased check delete notes, conditional filtering and sorting notes , And supports notes in the form of words and pictures.
 
 ## 🚀 DEMO
 
@@ -24,29 +26,28 @@ npm run build
 ## 🎯 主要功能
 
 - v1
-  - ✔️响应适配
-  - ✔️创建、修改笔记
-  - ✔️删除部分或全部笔记
-  - ✔️查看笔记详细内容
-  - ✔️标记笔记是否完成
-  - ✔️切换笔记显示模式
+  - ✔️响应适配 Responsive
+  - ✔️创建、修改笔记 create or modify notes
+  - ✔️删除部分或全部笔记 delete notes or drop all data
+  - ✔️查看笔记详细内容 read the note content
+  - ✔️标记笔记是否完成 check if completed
+  - ✔️切换笔记显示模式 switch display mode
 - v2
-  - ✔️按是否完成进行过滤
-  - ✔️按创建时间排序
-  - ✔️按完成情况进行过滤
-  - ✔️按类别进行过滤
-  - ✔️收藏、取消收藏和显示收藏笔记
-  - ✔️通过localStorage对象的数据本地持久化
+  - ✔️按是否完成进行过滤 filter by completed
+  - ✔️按创建时间排序 sort by timestamp
+  - ✔️按类别进行过滤 filter by type
+  - ✔️收藏、取消收藏和显示收藏笔记 star or unstar
+  - ✔️通过 localStorage 对象的数据本地持久化 user data stored in localStorage
 - v3
-  - ✔️支持Markdown格式
-  - ✔️以图片的形式保存笔记
-  - ✔️复制笔记内容到剪贴板
-  - 导出全部笔记至 JSON 文件格式
+  - ✔️支持Markdown格式 support Markdown
+  - ✔️以图片的形式保存笔记 save note as img(.png)
+  - ✔️复制笔记内容到剪贴板 Copy the note content to clipboard
+  - ✔️导出全部笔记至 JSON 文件格式(Blob)  export all notes to JSON file
 - v4
-  - 定时推送提醒通知
-  - 通过base64支持保存图片
-  - 通过Canvas支持绘图
-  - 实时保存笔记
+  - 实时保存笔记 save note in real time
+  - 定时推送提醒通知 notifications
+  - 通过base64支持保存图片 save the image via base64
+  - 通过Canvas支持绘图 draw in canvas 
 
 ## 📦 文件目录
 
