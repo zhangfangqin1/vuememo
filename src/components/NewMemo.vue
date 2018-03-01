@@ -17,7 +17,7 @@
       <mt-field label="内容" placeholder="文本内容" type="textarea" rows="12" v-model="memo_content"></mt-field>
       <div class="button-group">
         <mt-button v-if="ifShowPreviewBtn" plain size="large" class="new-memo" @click.native="handlePreviewBtn" type="default">Markdown 预览</mt-button>
-        <mt-button plain size="large" class="new-memo" @click.native="handleSubmitBtn" type="primary">确认提交</mt-button>
+        <mt-button id="submitBtn" plain size="large" class="new-memo" @click.native="handleSubmitBtn" type="primary">确认提交</mt-button>
       </div>
     </div>
   </div>
@@ -108,6 +108,8 @@ export default {
     }
   },
   mounted: function() {
+    let ctx = this;
+
     this.memo_category_id = this.type[0];
     // 避免输入法挡住输入框
     this.titleInputer = document.querySelector("input.mint-field-core");
@@ -129,6 +131,30 @@ export default {
       this.titleInputer.blur();
       this.contentInputer.blur();
     };
+
+
+
+
+    // debounce autosave
+    // let data = {};
+    // function fn() {
+    //   return utils.throttle(3000, () => {
+    //     document.querySelector('#submitBtn').innerText = '自动保存...'
+    //     data.uid = utils.uid()
+    //     data.categoryId = ctx.$store.state.type.indexOf(ctx.memo_category_id)
+    //     data.title = ctx.memo_title
+    //     data.content = ctx.memo_content
+    //     data.completed = false
+    //     data.ifMarkdown = ctx.ifMarkdown
+    //     data.timestamp = Date.now()
+    //     console.log(data);
+        
+    //     let t = setTimeout(() => { document.querySelector('#submitBtn').innerText = '确认提交' }, 2000);
+    //     t = null;
+    //   })
+    // }
+    // this.titleInputer.onkeypress = fn();
+    // this.contentInputer.onkeypress = fn();
   }
 };
 </script>

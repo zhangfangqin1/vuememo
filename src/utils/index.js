@@ -1,5 +1,53 @@
 export default {
   /**
+   * @description 防抖动 函数 ms 秒后执行一次
+   * @param {*} ms 
+   * @param {*} callback 
+   */
+  debounce(ms, callback) {
+    let timer = null;
+    return function() {
+      const args = arguments;
+      const that = this;
+
+      clearTimeout(timer);
+
+      timer = setTimeout(function() {
+        callback.apply(that, args);
+      }, ms);
+
+    }
+  },
+  /**
+   * @description 节流阀函数 interval 间隔内不可触发
+   * @param {*} interval 
+   * @param {*} callback 
+   */
+  throttle(interval = 250, callback) {
+    let timer = null;
+    let lastFired = null;
+    interval;
+    return function() {
+      const that = this;
+      const args = arguments;
+      let now = +new Date();
+      // 判定时间间隔
+      if (lastFired && now < lastFired + interval) {
+        clearTimeout(timer);
+        // 未到时间重新计时
+        timer = setTimeout(function() {
+          lastFired = now;
+          callback.apply(this, args);
+        }, interval);
+      } else {
+        // 到时间立即执行
+        lastFired = now;
+        callback.apply(this, args);
+      }
+
+    }
+  },
+  /**
    * @description 防止 input 输入字符串的时候被虚拟键盘挡住
    * @param {Object} e
    */
