@@ -56,8 +56,11 @@ export default {
               let dataUrl = canvas.toDataURL('image/png');
               let link = document.createElement('a');
               link.href = dataUrl;
-              link.download = `memo-${this.memoItem.title}-${Date.now()}`
+              link.style.display = 'none';
+              link.download = `memo-${this.memoItem.title}-${Date.now()}.png`
+              document.body.appendChild(link);
               link.click();
+              document.body.removeChild(link);
             })
           }
       },{

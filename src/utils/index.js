@@ -13,7 +13,10 @@ IE ✘ 5.5+ ✔ 10+ Edge ✔ ¹ Firefox ✘ 2+ ✔ 4+ Chrome ✘ 4+ ✔ 8+ᵖ �
     let a = document.createElement('a')
     a.href = url;
     a.download = 'allData.json';
+    a.style.display = 'none';
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
   },
   /**
    * @description 创建uid
