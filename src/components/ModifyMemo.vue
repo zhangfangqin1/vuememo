@@ -3,8 +3,8 @@
     <div>
       <Header/>
       <div class="content">
-        <mt-field label="标题" placeholder="请输入标题" v-model="memo_title"></mt-field>
-        <mt-field label="内容" placeholder="文本内容" type="textarea" rows="20" v-model="memo_content"></mt-field>
+        <mt-field ref="title" label="标题" placeholder="请输入标题" v-model="memo_title"></mt-field>
+        <mt-field ref="content" label="内容" placeholder="文本内容" type="textarea" rows="20" v-model="memo_content"></mt-field>
         <mt-radio title="笔记类型" v-model="memo_category_id" :options="this.$store.state.type"></mt-radio>
       </div>
       <div class="button-group">
@@ -34,8 +34,6 @@ export default {
       memo_title: "",
       memo_content: "",
       memo_star: false,
-      titleInputer: null,
-      contentInputer: null
     };
   },
   methods: {
@@ -52,16 +50,8 @@ export default {
         star: this.memo_star,
         timestamp: Date.now()
       })
-        .then(() => {
-          Toast({
-            message: `修改成功`
-          });
-        })
-        .catch(e => {
-          Toast({
-            message: `修改失败，请重试`
-          });
-        });
+        .then(() => { Toast({ message: `修改成功` }) })
+        .catch(e => { Toast({ message: `修改失败，请重试` }) });
       this.$router.go(-1);
     }
   },
@@ -84,25 +74,18 @@ export default {
       }
     });
     // 避免输入法挡住输入框
-    this.titleInputer = document.querySelector("input.mint-field-core");
-    this.contentInputer = document.querySelector("textarea.mint-field-core");
-    this.titleInputer.onfocus = e => {
-      setTimeout(() => {
-        this.titleInputer.scrollIntoView(true);
-        this.titleInputer.scrollIntoViewIfNeeded();
-      }, 300);
-    };
-    this.contentInputer.onfocus = e => {
-      setTimeout(() => {
-        this.contentInputer.scrollIntoView(true);
-        this.contentInputer.scrollIntoViewIfNeeded();
-      }, 300);
-    };
-    window.ontouchstart = () => {
-      // 防止再次挡住
-      this.titleInputer.blur();
-      this.contentInputer.blur();
-    };
+    {
+      const titleInputer = this.$refs.title.$refs.input;
+      const contentInputer = this.$refs.content.$refs.textarea;
+      titleInputer.onfocus = utils.intoView;
+      contentInputer.onfocus = utils.intoView;
+      window.ontouchstart = () => {
+        // 防止再次挡住
+        titleInputer.blur();
+        contentInputer.blur();
+      };
+    }
+    
   }
 };
 </script>
