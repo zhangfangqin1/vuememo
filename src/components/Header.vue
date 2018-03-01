@@ -41,13 +41,6 @@ export default {
             this.$router.push({ path: "new" });
           }
         },
-        // {
-        //   name: "导出全部笔记",
-        //   method: () => {
-        //     let allMemos = JSON.stringify(this.$store.state.memos);
-        //     // TBD
-        //   }
-        // },
         {
           name: "删除全部笔记",
           method: () => {
