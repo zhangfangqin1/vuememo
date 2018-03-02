@@ -8,13 +8,13 @@
     </div>
     <div v-else>
       <Header/>
-      <mt-radio title="笔记类型" v-model="memo_category_id" :options="this.$store.state.type">
+      <mt-radio ref="category_id" title="笔记类型" v-model="memo_category_id" :options="this.$store.state.type">
       </mt-radio>
-      <mt-switch v-model="ifMarkdown" @change.native="handleMarkdownSwitch">
+      <mt-switch ref="markdown_switch" v-model="ifMarkdown" @change.native="handleMarkdownSwitch">
         {{ this.ifMarkdown === true ? '采用': '不采用' }} markdown 模式
       </mt-switch>
-      <mt-field label="标题" placeholder="请输入标题" v-model="memo_title"></mt-field>
-      <mt-field label="内容" placeholder="文本内容" type="textarea" rows="12" v-model="memo_content"></mt-field>
+      <mt-field ref="title" label="标题" placeholder="请输入标题" v-model="memo_title"></mt-field>
+      <mt-field ref="content" label="内容" placeholder="文本内容" type="textarea" rows="12" v-model="memo_content"></mt-field>
       <div class="button-group">
         <mt-button v-if="ifShowPreviewBtn" plain size="large" class="new-memo" @click.native="handlePreviewBtn" type="default">Markdown 预览</mt-button>
         <mt-button id="submitBtn" plain size="large" class="new-memo" @click.native="handleSubmitBtn" type="primary">确认提交</mt-button>
@@ -25,7 +25,7 @@
 
 <script>
 import { mapState, mapActions } from "Vuex";
-import { Toast } from "mint-ui";
+import { Toast, MessageBox } from "mint-ui";
 import utils from "../utils";
 
 import actionType from "../store/action";
@@ -93,6 +93,10 @@ export default {
           Toast({
             message: "发布成功"
           });
+          // 清空缓存应大于 auto save timeout
+          let t = setTimeout(() => {
+            window.localStorage.removeItem('tempMemo');
+          }, 3000);
         })
         .catch(e => {
           Toast({
@@ -105,6 +109,20 @@ export default {
     },
     handleCancelBtn() {
       this.$router.push({ path: "/" });
+    }
+  },
+  beforeMount: function() {
+    if (window.localStorage.tempMemo) {
+      MessageBox.confirm('是否加载缓存笔记').then(action => {
+        let tempMemo = utils.localStorage.getItem('tempMemo');
+        this.memo_category_id = tempMemo.memo_category_id;
+        this.memo_title = tempMemo.memo_title;
+        this.memo_content = tempMemo.memo_content;
+        this.ifShowPreviewBtn = tempMemo.ifShowPreviewBtn;
+        this.ifMarkdown = tempMemo.ifMarkdown;
+      }).catch(action => {
+        window.localStorage.removeItem('tempMemo');
+      });
     }
   },
   mounted: function() {
@@ -132,29 +150,27 @@ export default {
       this.contentInputer.blur();
     };
 
-
-
-
-    // debounce autosave
-    // let data = {};
-    // function fn() {
-    //   return utils.throttle(3000, () => {
-    //     document.querySelector('#submitBtn').innerText = '自动保存...'
-    //     data.uid = utils.uid()
-    //     data.categoryId = ctx.$store.state.type.indexOf(ctx.memo_category_id)
-    //     data.title = ctx.memo_title
-    //     data.content = ctx.memo_content
-    //     data.completed = false
-    //     data.ifMarkdown = ctx.ifMarkdown
-    //     data.timestamp = Date.now()
-    //     console.log(data);
-        
-    //     let t = setTimeout(() => { document.querySelector('#submitBtn').innerText = '确认提交' }, 2000);
-    //     t = null;
-    //   })
-    // }
-    // this.titleInputer.onkeypress = fn();
-    // this.contentInputer.onkeypress = fn();
+    // auto save in 3s
+    Object.values(this.$refs).forEach((ref) => {
+      // input
+      if (ref.$refs.input) {
+        ref.$refs.input.onkeypress = utils.throttle(2000, () => {
+          utils.localStorage.setItem('tempMemo', this.$data);
+        });
+      }
+      // textarea
+      if (ref.$refs.textarea) {
+        ref.$refs.textarea.onkeypress = utils.throttle(2000, () => {
+          utils.localStorage.setItem('tempMemo', this.$data);
+        });
+      }
+      // others
+      if (ref.$el.nodeName.toLowerCase() === 'div' || 'label') {
+        ref.$el.onclick = utils.throttle(2000, () => {
+          utils.localStorage.setItem('tempMemo', this.$data);
+        });
+      }
+    });
   }
 };
 </script>
