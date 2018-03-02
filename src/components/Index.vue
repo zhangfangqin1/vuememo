@@ -1,10 +1,16 @@
 <template>
   <div>
     <Header/>
+    <div contenteditable="true"
+      @click="handleClick"
+      @blur="handleBlur"
+      @keypress.enter="handleSearch"
+    class="search">{{search}}</div>
     <div id="memos">
       <MemoItem v-if="this.showType === 'all'" :memosData="this.allMemo"></MemoItem>
       <MemoItem v-if="this.showType === 'completed'" :memosData="this.completedMemo"></MemoItem>
       <MemoItem v-if="this.showType === 'incomplete'" :memosData="this.incompleteMemo"></MemoItem>
+      <MemoItem v-if="this.showType === 'search'" :memosData="this.searchMemo"></MemoItem>
       <MemoItem v-if="this.showType === 'star'" :memosData="this.starMemo"></MemoItem>
       <MemoItem v-if="this.showType === '工作'" :memosData="this.work"></MemoItem>
       <MemoItem v-if="this.showType === '学习'" :memosData="this.study"></MemoItem>
@@ -32,11 +38,13 @@ export default {
   components: {
     Header,
     MemoItem,
-    Tabbar
+    Tabbar,
   },
   data: function() {
     return {
-      showType: "all"
+      showType: "all",
+      search: '关键词搜索',
+      kw: ''
     };
   },
   computed: {
@@ -56,6 +64,9 @@ export default {
     starMemo: function() {
       return this.$store.getters.starMemos(this.sortByTimeType);
     },
+    searchMemo: function() {
+      return this.$store.getters.search(this.kw);
+    },
     // 类别
     work: function() {
       return this.$store.getters.work(this.sortByTimeType);
@@ -74,6 +85,21 @@ export default {
     ...mapMutations({
       add_memo: mutationType.ADD_MEMO
     }),
+    handleClick(e){
+      e.preventDefault();
+      e.target.style.color = '#000';
+      e.target.innerHTML = '';
+    },
+    handleBlur(e){
+      e.preventDefault();
+      e.target.style.color = '#ccc';
+    },
+    handleSearch(e){
+      e.preventDefault();
+      e.target.style.color = '#000';
+      this.kw = e.target.innerText;
+      this.showType = 'search' // 搜索
+    },
     handleShow(value) {
       this.showType = value;
     }
@@ -130,3 +156,14 @@ export default {
   }
 };
 </script>
+
+<style>
+.search {
+  font-size: 16px;
+  text-align: left;
+  padding-left: .3125rem /* 5/16 */;
+  padding-top: .1875rem /* 3/16 */;
+  outline: none;
+  color: #ccc;
+}
+</style>

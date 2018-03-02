@@ -53,6 +53,13 @@ const getters = {
             let memo = state.memos.filter(memo => memo.categoryId === 2);
             return params ? ascByTimeMemo(memo) : descByTimeMemo(memo);
         }
+    },
+    search: function(state) {
+        return function (params) {
+            let re = new RegExp(params, 'i');
+            let memo = state.memos.filter(memo => memo.title.search(re) >= 0 || memo.content.search(re) >= 0);
+            return memo;
+        }
     }
 };
 

@@ -45,6 +45,7 @@ npm run build
   - ✔️导出全部笔记至 JSON 文件格式(Blob)  export all notes to JSON file
 - v4
   - ✔️实时保存笔记 save note in real time
+  - ✔️关键词搜索笔记 keywords search
   - 定时推送提醒通知 notifications
   - 通过base64支持保存图片 save the image via base64
   - 通过Canvas支持绘图 draw in canvas 
