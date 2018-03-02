@@ -96,7 +96,7 @@ export default {
           // 清空缓存应大于 auto save timeout
           let t = setTimeout(() => {
             window.localStorage.removeItem('tempMemo');
-          }, 3000);
+          }, 300);
         })
         .catch(e => {
           Toast({
@@ -150,23 +150,23 @@ export default {
       this.contentInputer.blur();
     };
 
-    // auto save in 3s
+    // auto save in .2s
     Object.values(this.$refs).forEach((ref) => {
       // input
       if (ref.$refs.input) {
-        ref.$refs.input.onkeypress = utils.throttle(2000, () => {
+        ref.$refs.input.onkeypress = utils.throttle(200, () => {
           utils.localStorage.setItem('tempMemo', this.$data);
         });
       }
       // textarea
       if (ref.$refs.textarea) {
-        ref.$refs.textarea.onkeypress = utils.throttle(2000, () => {
+        ref.$refs.textarea.onkeypress = utils.throttle(200, () => {
           utils.localStorage.setItem('tempMemo', this.$data);
         });
       }
       // others
       if (ref.$el.nodeName.toLowerCase() === 'div' || 'label') {
-        ref.$el.onclick = utils.throttle(2000, () => {
+        ref.$el.onclick = utils.throttle(200, () => {
           utils.localStorage.setItem('tempMemo', this.$data);
         });
       }
