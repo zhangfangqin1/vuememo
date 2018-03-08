@@ -14,6 +14,7 @@
         {{ this.ifMarkdown === true ? '采用': '不采用' }} markdown 模式
       </mt-switch>
       <mt-field ref="title" label="标题" placeholder="请输入标题" v-model="memo_title"></mt-field>
+      <input multiple type="file" accept="image/*" name="pic" @change="handleFileUpload" id="fileUploader">
       <mt-field ref="content" label="内容" placeholder="文本内容" type="textarea" rows="12" v-model="memo_content"></mt-field>
       <div class="button-group">
         <mt-button v-if="ifShowPreviewBtn" plain size="large" class="new-memo" @click.native="handlePreviewBtn" type="default">Markdown 预览</mt-button>
@@ -47,7 +48,8 @@ export default {
       contentInputer: null,
       ifShowPreview: false,
       ifShowPreviewBtn: false,
-      ifMarkdown: false
+      ifMarkdown: false,
+      imgs: []
     };
   },
   computed: {
@@ -59,7 +61,22 @@ export default {
     ...mapActions({
       add_memo: actionType.ADD_MEMO
     }),
-    handleMarkdownSwitch(e){
+    handleFileUpload(e) {
+      [...e.target.files].forEach(file => {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.addEventListener("load", () => {
+          let url = reader.result;
+          this.imgs.push(url);
+          if (this.imgs.length === e.target.files.length) {
+            Toast({
+              message: "上传成功"
+            });
+          }
+        });
+      });
+    },
+    handleMarkdownSwitch(e) {
       if (this.ifMarkdown) {
         this.ifShowPreviewBtn = true;
       } else {
@@ -67,10 +84,10 @@ export default {
       }
     },
     handlePreviewBtn(e) {
-      this.ifShowPreview = true
+      this.ifShowPreview = true;
     },
     handleClosePreviewBtn() {
-      this.ifShowPreview = false
+      this.ifShowPreview = false;
     },
     handleSubmitBtn(e) {
       if (this.memo_title.length === 0 || this.memo_content.length === 0) {
@@ -87,7 +104,8 @@ export default {
         content: this.memo_content,
         completed: false,
         ifMarkdown: this.ifMarkdown,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        imgs: this.imgs
       })
         .then(() => {
           Toast({
@@ -95,7 +113,7 @@ export default {
           });
           // 清空缓存应大于 auto save timeout
           let t = setTimeout(() => {
-            window.localStorage.removeItem('tempMemo');
+            window.localStorage.removeItem("tempMemo");
           }, 300);
         })
         .catch(e => {
@@ -113,16 +131,18 @@ export default {
   },
   beforeMount: function() {
     if (window.localStorage.tempMemo) {
-      MessageBox.confirm('是否加载缓存笔记').then(action => {
-        let tempMemo = utils.localStorage.getItem('tempMemo');
-        this.memo_category_id = tempMemo.memo_category_id;
-        this.memo_title = tempMemo.memo_title;
-        this.memo_content = tempMemo.memo_content;
-        this.ifShowPreviewBtn = tempMemo.ifShowPreviewBtn;
-        this.ifMarkdown = tempMemo.ifMarkdown;
-      }).catch(action => {
-        window.localStorage.removeItem('tempMemo');
-      });
+      MessageBox.confirm("是否加载缓存笔记")
+        .then(action => {
+          let tempMemo = utils.localStorage.getItem("tempMemo");
+          this.memo_category_id = tempMemo.memo_category_id;
+          this.memo_title = tempMemo.memo_title;
+          this.memo_content = tempMemo.memo_content;
+          this.ifShowPreviewBtn = tempMemo.ifShowPreviewBtn;
+          this.ifMarkdown = tempMemo.ifMarkdown;
+        })
+        .catch(action => {
+          window.localStorage.removeItem("tempMemo");
+        });
     }
   },
   mounted: function() {
@@ -151,23 +171,23 @@ export default {
     };
 
     // auto save in .2s
-    Object.values(this.$refs).forEach((ref) => {
+    Object.values(this.$refs).forEach(ref => {
       // input
       if (ref.$refs.input) {
         ref.$refs.input.onkeypress = utils.throttle(200, () => {
-          utils.localStorage.setItem('tempMemo', this.$data);
+          utils.localStorage.setItem("tempMemo", this.$data);
         });
       }
       // textarea
       if (ref.$refs.textarea) {
         ref.$refs.textarea.onkeypress = utils.throttle(200, () => {
-          utils.localStorage.setItem('tempMemo', this.$data);
+          utils.localStorage.setItem("tempMemo", this.$data);
         });
       }
       // others
-      if (ref.$el.nodeName.toLowerCase() === 'div' || 'label') {
+      if (ref.$el.nodeName.toLowerCase() === "div" || "label") {
         ref.$el.onclick = utils.throttle(200, () => {
-          utils.localStorage.setItem('tempMemo', this.$data);
+          utils.localStorage.setItem("tempMemo", this.$data);
         });
       }
     });

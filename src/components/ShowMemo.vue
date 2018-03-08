@@ -15,6 +15,9 @@
       <p class="timestamp">{{new Date(memoItem.timestamp).toLocaleTimeString()}}</p>
       <p class="content">{{memoItem.content}}</p>
     </div>
+    <div class="imgs" v-if="memoItem.imgs">
+        <img :key="index" v-for="(url, index) of memoItem.imgs" :src="url">
+    </div>
     <div class="button-group">
       <mt-button @click.native="handleModify" type="primary" plain size="large">修改</mt-button>
       <mt-button plain size="large" class="new-memo" @click.native="handleStar" type="default">{{ memoItem.star ? '取消收藏' : '收藏' }}</mt-button>
@@ -39,41 +42,44 @@ export default {
   },
   data: function() {
     return {
-        isShareActionsVisible: false
-    }
+      isShareActionsVisible: false
+    };
   },
   computed: {
     ...mapState({
       memos: "memos"
     }),
-    shareActions(){
-      return [{
+    shareActions() {
+      return [
+        {
           name: "保存截图",
           method: () => {
             this.isShareActionsVisible = !this.isShareActionsVisible;
-            let hc = require('html2canvas');
-            hc(document.querySelector('div.container')).then(canvas => {
-              let dataUrl = canvas.toDataURL('image/png');
-              let link = document.createElement('a');
+            let hc = require("html2canvas");
+            hc(document.querySelector("div.container")).then(canvas => {
+              let dataUrl = canvas.toDataURL("image/png");
+              let link = document.createElement("a");
               link.href = dataUrl;
-              link.style.display = 'none';
-              link.download = `memo-${this.memoItem.title}-${Date.now()}.png`
+              link.style.display = "none";
+              link.download = `memo-${this.memoItem.title}-${Date.now()}.png`;
               document.body.appendChild(link);
               link.click();
               document.body.removeChild(link);
-            })
+            });
           }
-      },{
-        name: "复制内容到剪贴板",
-        method: () => {
-          document.oncopy = (e) => {
-            e.clipboardData.setData('text/plain', this.memoItem.content);
-            e.preventDefault();
-            console.log('复制完成');
+        },
+        {
+          name: "复制内容到剪贴板",
+          method: () => {
+            document.oncopy = e => {
+              e.clipboardData.setData("text/plain", this.memoItem.content);
+              e.preventDefault();
+              console.log("复制完成");
+            };
+            document.execCommand("copy");
           }
-          document.execCommand('copy');
         }
-      }]
+      ];
     },
     memoItem: function() {
       let uid = this.$route.params.id;
@@ -94,10 +100,10 @@ export default {
       sync_memo: actionType.SYNC_MEMO
     }),
     md: function(doc) {
-      let MarkdownIt = require('markdown-it');
+      let MarkdownIt = require("markdown-it");
       let md = new MarkdownIt();
-      let result = md.render(doc)
-      return result
+      let result = md.render(doc);
+      return result;
     },
     handleStar() {
       let uid = this.$route.params.id;
@@ -118,7 +124,7 @@ export default {
       let uid = this.$route.params.id;
       this.$router.push({ path: `/modify/${uid}` });
     },
-    handleShare(){
+    handleShare() {
       this.isShareActionsVisible = !this.isShareActionsVisible;
     },
     handleDelete() {
@@ -174,5 +180,16 @@ export default {
 }
 .button-group {
   text-align: center;
+}
+
+/* img */
+.imgs {
+  text-align: center;
+  font-size: 0;
+}
+.imgs > img {
+  max-width: 49%;
+  margin: 0;
+  padding: 0.5%;
 }
 </style>
