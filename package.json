@@ -5,7 +5,7 @@
   "author": "OliverYoung <billyangg@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --host 0.0.0.0 --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js"
   },
@@ -15,6 +15,7 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.6",
     "@fortawesome/vue-fontawesome": "^0.0.22",
     "amfe-flexible": "^2.2.1",
+    "babel-polyfill": "^6.26.0",
     "html2canvas": "^1.0.0-alpha.10",
     "markdown-it": "^8.4.1",
     "mint-ui": "^2.2.13",
